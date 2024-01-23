@@ -1,0 +1,43 @@
+.filterContainer{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    flex-wrap: wrap;
+    margin: 40px auto;
+}
+.filterContainer .resetFilter{
+    background-color: #009AA4;
+    width: max-content;
+    margin: auto;
+    padding: 7px 20px;
+    border-radius: 10px 10px 0px 0px;
+    z-index: 1;
+    transform: translateY(10px);
+    transition: 500ms;
+}
+.filterContainer .resetFilter:hover{
+    transform: translateY(0px);
+    transform: translateY(2px);
+    transition: 500ms;
+    cursor: pointer;
+}
+.resetFilter a{
+    text-decoration: none;
+    color: #fff;
+}
+.filterCategoriesContainer{
+    display: flex;
+    justify-content: center;
+}
+.filterCategoriesContainer .filterCategories{
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    background-color: #fff;
+    width: 70%;
+    padding: 15px 0 10px 0;
+    border: 0.6px solid rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
+    border-radius: 20px;
+    z-index: 2;
+}

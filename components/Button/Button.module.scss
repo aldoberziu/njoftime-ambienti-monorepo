@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
+
+.button {
+  max-width: 100%;
+  display: inline-block;
+  font-family: 'Work Sans', sans-serif;
+  vertical-align: top;
+  text-align: center;
+
+  /* border-radius: $button-border-radius; */
+  cursor: pointer;
+  position: relative;
+  &.disabled{
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}

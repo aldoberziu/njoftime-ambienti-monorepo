@@ -1,0 +1,18 @@
+.category{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-basis: 100%;
+    padding: 0px 5px;
+}
+.category:hover{
+    cursor: pointer;
+}
+.category .title{
+    white-space: wrap;
+    padding-top: 15px;
+    margin: auto;
+    text-align: center;
+    color: rgba(149, 149, 149, 1);
+}

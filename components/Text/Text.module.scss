@@ -1,0 +1,53 @@
+.h1 {
+  font-size: 40px;
+  line-height: 47px;
+  letter-spacing: -0.64px;
+}
+.h2 {
+  font-size: 34px;
+  line-height: 40px;
+  letter-spacing: -0.64px;
+}
+.h3 {
+  font-size: 30px;
+  line-height: 50px;
+  letter-spacing: -0.32px;
+}
+.sh1 {
+  font-size: 26px;
+  line-height: 30.5px;
+  letter-spacing: -0.32px;
+}
+.sh2 {
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.32px;
+}
+.sh3 {
+  font-size: 20px;
+  line-height: 22px;
+}
+.ui1 {
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: -0.32px;
+}
+.ui2 {
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: -0.64px;
+}
+.ui3 {
+  font-size: 10px;
+  line-height: 11.5px;
+}
+.italic{
+  font-style: italic;
+}
+
+.sh2 .sh3 .ui1 .ui2 .ui3 {
+  font-weight: 400;
+}
+// h3 .sh1 {
+//   font-weight: 500;
+// }
