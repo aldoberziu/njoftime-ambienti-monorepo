@@ -1,9 +1,9 @@
 import Link from "next/link.js";
-import "./Button.module.scss";
+import styles from "./Button.module.scss";
 import Text from "../Text/index.js";
 
 const Button = ({ children, className, href, disabled, text, onClick, ...rest }) => {
-  const classNames = ["button"];
+  const classNames = [`${styles.button}`];
   if (className) classNames.push(className);
   if (disabled) classNames.push('disabled');
   return (

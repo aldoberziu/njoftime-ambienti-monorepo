@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Text from "../Text";
 import { UpArrow, DownArrow } from "../../icons";
 import styles from "./FloorRange.module.css";
+import Image from 'next/image'
 
 const FloorRangeAccordion = ({ sendTheValues }) => {
   const [accordion, setAccordion] = useState(false);
@@ -75,20 +76,20 @@ const FloorRangeAccordion = ({ sendTheValues }) => {
         <div className={styles.accordionHeader} onClick={toggleAccordion}>
           <Text sh3>Floor Range</Text>
           <div className={styles.toggleIcon}>
-            <img src={accordion ? UpArrow : DownArrow} />
+            <Image src={accordion ? UpArrow : DownArrow} />
           </div>
         </div>
-        <div className={styles.floorContent}>
-          <div className={styles.floorSlider}>
-            <div className={styles.floorProgress} />
+        <div className={`${styles.floorContent} floor-content`}>
+          <div className={`${styles.floorSlider} floor-slider`}>
+            <div className={`${styles.floorProgress} floor-progress`}/>
           </div>
-          <div className={styles.floorRangeInput}>
+          <div className={`${styles.floorRangeInput} floor-range-input`}>
             <div id="range-input-container">
-              <div class="range-value" id="floorRangeMin"></div>
+              <div className={`${styles.rangeValue} range-value`} id="floorRangeMin"></div>
               <input
                 type="range"
                 id="floor-range-value-min"
-                className="range-min"
+                className={`${styles.inputTypeRange} range-min input-type-range`}
                 min={0}
                 max={50}
                 defaultValue={minValue}
@@ -96,11 +97,11 @@ const FloorRangeAccordion = ({ sendTheValues }) => {
               />
             </div>
             <div id="range-input-container">
-              <div class="range-value" id="floorRangeMax"></div>
+              <div className={`${styles.rangeValue} range-value`} id="floorRangeMax"></div>
               <input
                 type="range"
                 id="floor-range-value-max"
-                className="range-max"
+                className={`${styles.inputTypeRange} range-max input-type-range`}
                 min={0}
                 max={50}
                 defaultValue={maxValue}

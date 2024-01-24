@@ -59,7 +59,7 @@ const FeedsGrid = () => {
               <div className={styles.imageContainer}>
                 <Slider /*className="slider"*/ />
               </div>
-              <Link to={`/feeds/${feed._id}`}>
+              <Link href={`/feeds/${feed._id}`}>
                 <div className={styles.specificsContainer}>
                   <Text ui1 className={styles.title}>
                     {feed.location?.zone
@@ -88,12 +88,12 @@ const FeedsGrid = () => {
                       : " "}{" "}
                     / {feed.furnishing}
                   </Text> */}
-                  <Text ui3>
+                  <Text ui3 className={styles.ui3}>
                     Ambienti: {feed.rooms} + {feed.toilet} {feed.garage ? "+ Garazh" : ""} /{" "}
                     {feed.furnishing}
                   </Text>
-                  <Text ui3>Sipërfaqja: {feed.area} m2</Text>
-                  <Text ui3>
+                  <Text ui3 className={styles.ui3}>Sipërfaqja: {feed.area} m2</Text>
+                  <Text ui3 className={styles.ui3}>
                     Kati: {feed.floor}, Ashensor: {feed.elevator ? "Po" : "Jo"}
                   </Text>
                   <div className={styles.bottomContainer}>

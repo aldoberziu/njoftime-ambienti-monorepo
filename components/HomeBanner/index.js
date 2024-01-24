@@ -1,11 +1,12 @@
 import { BannerImage } from '../../icons';
+import Image from 'next/image'
 import Search from '../SearchBar';
 import styles from './HomeBanner.module.css'
 
 const Banner = () => {
     return ( 
         <div className={styles.bannerContainer}>
-            <img src={BannerImage} className={styles.bannerImage}/>
+            <Image src={BannerImage} className={styles.bannerImage}/>
             <Search />
         </div>
      );

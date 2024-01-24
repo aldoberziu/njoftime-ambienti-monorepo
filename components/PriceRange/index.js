@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Text from "../Text";
+import Image from 'next/image'
 import { UpArrow, DownArrow } from "../../icons";
 import styles from "./PriceRange.module.css";
 
@@ -76,20 +77,20 @@ const PriceRangeAccordion = ({sendTheValues}) => {
         <div className={styles.accordionHeader} onClick={toggleAccordion}>
           <Text sh3>Price Range</Text>
           <div className={styles.toggleIcon}>
-            <img src={accordion ? UpArrow : DownArrow} />
+            <Image src={accordion ? UpArrow : DownArrow} />
           </div>
         </div>
-        <div className={styles.priceContent}>
-          <div className={styles.priceSlider}>
-            <div className={styles.progress} />
+        <div className={`${styles.priceContent} price-content`}>
+          <div className={`${styles.priceSlider} price-slider`}>
+            <div className={`${styles.progress} progress`} />
           </div>
-          <div className={styles.rangeInput}>
+          <div className={`${styles.rangeInput} range-input`}>
             <div id="range-input-container">
-              <div class="range-value" id="rangeMin"></div>
+              <div className={`${styles.rangeValue} range-value`} id="rangeMin"></div>
               <input
                 type="range"
                 id="price-range-value-min"
-                className="range-min input-type-range"
+                className={`${styles.inputTypeRange} range-min input-type-range`}
                 min={0}
                 max={10000}
                 defaultValue={minValue}
@@ -97,11 +98,11 @@ const PriceRangeAccordion = ({sendTheValues}) => {
               />
             </div>
             <div id="range-input-container">
-              <div class="range-value" id="rangeMax"></div>
+              <div className={`${styles.rangeValue} range-value`} id="rangeMax"></div>
               <input
                 type="range"
                 id="price-range-value-max"
-                className="range-max input-type-range"
+                className={`${styles.inputTypeRange} range-max input-type-range`}
                 min={0}
                 max={10000}
                 defaultValue={maxValue}

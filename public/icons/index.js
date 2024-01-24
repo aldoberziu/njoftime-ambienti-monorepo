@@ -13,7 +13,6 @@ export { default as FilterEl4 } from "./filterEl-4.svg";
 export { default as FilterEl5 } from "./filterEl-5.svg";
 export { default as FilterEl6 } from "./filterEl-6.svg";
 export { default as SearchIcon } from "./search-icon.svg";
-export { default as FilterIcon } from "./filter-icon.svg";
 export { default as DownArrowTriangle } from "./down-arrow-triangle.svg";
 export { default as DownArrow } from "./down-arrow.svg";
 export { default as UpArrow } from "./up-arrow.svg";

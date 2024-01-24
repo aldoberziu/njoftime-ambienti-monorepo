@@ -1,5 +1,6 @@
 import Button from "../Button";
 import Text from "../Text";
+import Image from "next/image";
 import { SearchIcon } from "../../icons";
 import styles from "./SearchBar.module.css";
 import { useState } from "react";
@@ -42,21 +43,21 @@ const Search = () => {
             id="search-input-field"
             onKeyDown={handleKeyPress}
           />
-          <Button onClick={() => handleSubmit(searchValue)} id="search-button">
-            <Text sh2>
-              Search <img src={SearchIcon} />
+          <Button onClick={() => handleSubmit(searchValue)} className={styles.ui1} id="search-button">
+            <Text sh2 className={styles.sh2}>
+              Search <Image src={SearchIcon}/>
             </Text>
           </Button>
         </div>
         <div className={styles.moreOptions}>
           <Button onClick={showModal}>
-            <Text sh2>
-              Me shume opsione <img src={DownArrowTriangle} />
+            <Text sh2 className={styles.sh2}>
+              Me shume opsione <Image src={DownArrowTriangle} />
             </Text>
           </Button>
         </div>
       </div>
-        {modal && <MoreOptions onToggle={getModalState} />}
+      {modal && <MoreOptions onToggle={getModalState} />}
     </>
   );
 };
