@@ -2,10 +2,18 @@ import { superTokensNextWrapper } from "supertokens-node/nextjs";
 import { verifySession } from "supertokens-node/recipe/session/framework/express";
 import supertokens from "supertokens-node";
 import { backendConfig } from "../../config/backendConfig";
+import NextCors from "nextjs-cors";
 
 supertokens.init(backendConfig());
 
 export default async function user(req, res) {
+    await NextCors(req, res, {
+        methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+        origin: "https://localhost:3000",
+        credentials: true,
+        allowedHeaders: ["content-type", ...supertokens.getAllCORSHeaders()],
+    });
+
     await superTokensNextWrapper(
         async (next) => {
             return await verifySession()(req, res, next);

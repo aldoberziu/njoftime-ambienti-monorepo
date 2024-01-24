@@ -2,9 +2,11 @@ import PasswordlessNode from "supertokens-node/recipe/passwordless";
 import SessionNode from "supertokens-node/recipe/session";
 import Dashboard from "supertokens-node/recipe/dashboard";
 import UserRoles from "supertokens-node/recipe/userroles";
+import UserMetadata from "supertokens-node/recipe/usermetadata";
 import { appInfo } from "./appInfo";
+import { AuthConfig } from "../interfaces";
 
-export let backendConfig = () => {
+export let backendConfig = ():AuthConfig => {
     return {
         framework: "express",
         supertokens: {
@@ -23,6 +25,7 @@ export let backendConfig = () => {
             SessionNode.init(),
             Dashboard.init(),
             UserRoles.init(),
+            UserMetadata.init(),
         ],
         isInServerlessEnv: true,
     };

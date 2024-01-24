@@ -2,7 +2,7 @@ const PasswordlessNode = require("supertokens-node/recipe/passwordless");
 const SessionNode = require("supertokens-node/recipe/session");
 const Dashboard = require("supertokens-node/recipe/dashboard");
 const UserRoles = require("supertokens-node/recipe/userroles");
-
+const UserMetadata = require("supertokens-node/recipe/usermetadata");
 const apiBasePath = "/api/auth/";
 
 exports.getApiDomain = () => {
@@ -38,6 +38,7 @@ exports.backendConfig = () => {
       SessionNode.init(),
       Dashboard.init(),
       UserRoles.init(),
+      UserMetadata.init(),
     ],
     isInServerlessEnv: true,
   };

@@ -8,6 +8,7 @@ import { BlogsIcon, CelebrateIcon, GuideIcon, SeparatorLine, SignOutIcon } from 
 import Image from "next/image";
 import { recipeDetails } from "../config/frontendConfig";
 import Link from "next/link";
+import SaveUser from "../SaveUser"
 
 interface ILink {
   name: string;
@@ -64,6 +65,7 @@ function ProtectedPage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.mainContainer}>
+      <SaveUser />
         <div className={`${styles.topBand} ${styles.successTitle} ${styles.bold500}`}>
           <Image src={CelebrateIcon} alt="Login successful" className={styles.successIcon} /> Login
           successful

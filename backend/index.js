@@ -12,6 +12,7 @@ const Dashboard = require("supertokens-node/recipe/dashboard");
 const UserRoles = require("supertokens-node/recipe/userroles");
 const Multitenancy = require("supertokens-node/recipe/multitenancy");
 const supertokens = require("supertokens-node");
+const UserMetadata = require("supertokens-node/recipe/usermetadata");
 
 const feeds = require("./routes/feeds.js");
 const plans = require("./routes/plans.js");
@@ -49,6 +50,7 @@ supertokens.init({
     SessionNode.init(),
     Dashboard.init(),
     UserRoles.init(),
+    UserMetadata.init(),
   ],
   isInServerlessEnv: true,
 });

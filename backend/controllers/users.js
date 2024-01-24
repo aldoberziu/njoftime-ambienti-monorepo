@@ -1,10 +1,15 @@
 const Users = require("../models/users");
+const UserMetadata = require("supertokens-node/recipe/usermetadata");
+const supertokens = require("supertokens-node");
 
 exports.create = async (req, res, next) => {
-  const userId = req.session.getUserId();
+  const userId = req.params.id;
+  let userInfo = await supertokens.getUser(userId);
   const user = await Users.findById(userId);
   if (!user) {
-    req.body._id = req.session.getUserId();
+    const { id, timeJoined, emails, phoneNumbers } = userInfo;
+    req.body = { _id: id, timeJoined, emails, phoneNumbers };
+
     const newUser = await Users.create(req.body);
     res.status(201).json({
       status: "success",
@@ -61,11 +66,11 @@ exports.delete = async (req, res, next) => {
   }
   next();
 };
-exports.addToFavourite = async (req,res,next) => {
+exports.addToFavourite = async (req, res, next) => {
   // const userId = req.session.getUserId();
   // const loggedUser = await Users.findById(userId);
   // const updatedUser = await Users.findByIdAndUpdate(loggedUser, {
   //   favorites
   // })
   // e lam ktu
-}
+};

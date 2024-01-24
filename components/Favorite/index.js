@@ -1,11 +1,12 @@
 import { EmptyHeart } from "../../icons";
 import Text from "../Text";
+import Image from "next/image";
 
 const FavoriteButton = (props) => {
     const feedId = props.feedId;
   return (
     <div>
-      <img src={EmptyHeart} className="heart-icon" />
+      <Image src={EmptyHeart} className="heart-icon" />
     </div>
   );
 };
