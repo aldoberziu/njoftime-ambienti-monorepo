@@ -33,7 +33,7 @@ exports.one = async (req, res, next) => {
   next();
 };
 exports.filterOptions = async (req, res, next) => {
-  let { city, zone, structure, minP, maxP } = req.query;
+  let { city, zone, structure, minP, maxP, elevator } = req.query;
 
   let feeds = [];
   let filteredFeeds = [];
@@ -41,7 +41,7 @@ exports.filterOptions = async (req, res, next) => {
   let matchNumQuery = {};
   matchStrQuery.$or = [];
   matchNumQuery.$and = [];
-  if (!!city || !!zone || !!structure) {
+  if (!!city || !!zone || !!structure || !!elevator) {
     if (!!city) {
       matchStrQuery.$or.push({ "location.city": { $regex: `^${city}$` } });
     }
@@ -50,6 +50,9 @@ exports.filterOptions = async (req, res, next) => {
     }
     if (!!structure) {
       matchStrQuery.$or.push({ structure: { $regex: `^${structure}$` } });
+    }
+    if (elevator === "true") {
+      matchStrQuery.$or.push({ elevator: true });
     }
   }
   if (!!minP || !!maxP) {

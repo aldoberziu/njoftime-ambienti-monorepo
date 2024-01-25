@@ -76,7 +76,7 @@ const FloorRangeAccordion = ({ sendTheValues }) => {
         <div className={styles.accordionHeader} onClick={toggleAccordion}>
           <Text sh3>Floor Range</Text>
           <div className={styles.toggleIcon}>
-            <Image src={accordion ? UpArrow : DownArrow} />
+            <Image src={accordion ? UpArrow : DownArrow} alt=""/>
           </div>
         </div>
         <div className={`${styles.floorContent} floor-content`}>

@@ -6,7 +6,7 @@ import styles from './HomeBanner.module.css'
 const Banner = () => {
     return ( 
         <div className={styles.bannerContainer}>
-            <Image src={BannerImage} className={styles.bannerImage}/>
+            <Image src={BannerImage} className={styles.bannerImage} alt=""/>
             <Search />
         </div>
      );

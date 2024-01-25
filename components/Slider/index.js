@@ -25,7 +25,7 @@ const Slider = () => {
     <div className={styles.slider}>
       <span className={`${styles.arrow} ${styles.arrowLeft}`} onClick={previousSlide}>←</span>
       {images.map((image, index) => {
-        return <Image src={image} key={index} className={slide === index ? `${styles.slide}` : `${styles.slide} ${styles.slideHidden}`} />;
+        return <Image src={image} alt="" key={index} className={slide === index ? `${styles.slide}` : `${styles.slide} ${styles.slideHidden}`} />;
       })}
       <span className={`${styles.arrow} ${styles.arrowRight}`} onClick={nextSlide}>→</span>
       <span className={styles.indicators}>

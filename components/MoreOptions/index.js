@@ -20,13 +20,14 @@ const MoreOptions = ({ onToggle }) => {
     const grid = document.getElementById("feeds-grid");
     setTimeout(function () {
       grid.scrollIntoView({ behavior: "smooth" });
-    }, 500)
+    }, 500);
   };
   const [selectedCity, setSelectedCity] = useState("DEFAULT");
   const [selectedZone, setSelectedZone] = useState("DEFAULT");
   const [selectedStructure, setSelectedStructure] = useState("DEFAULT");
   const [priceRange, setPriceRange] = useState([]);
   const [floorRange, setFloorRange] = useState([]);
+  const [selectedElevator, setSelectedElevator] = useState(false);
   const [filterIcon, setFilterIcon] = useState(false);
 
   const handleCityChange = (e) => {
@@ -46,6 +47,9 @@ const MoreOptions = ({ onToggle }) => {
   };
   const handleFloorValues = (floors) => {
     setFloorRange(floors);
+  };
+  const handleElevator = () => {
+    setSelectedElevator(!selectedElevator);
   };
   const buildFilterString = async () => {
     let filterString = "/?";
@@ -74,6 +78,12 @@ const MoreOptions = ({ onToggle }) => {
       filterString === "/?"
         ? (filterString = filterString + `maxP=${priceRange[1]}`)
         : (filterString = filterString + `&maxP=${priceRange[1]}`);
+    }
+    if (!!selectedElevator) {
+      filterString === "/?"
+        ? (filterString = filterString + "elevator=" + selectedElevator)
+        : (filterString = filterString + "&elevator=" + selectedElevator);
+      console.log(filterString);
     }
     dispatch({ type: "filterString", filterString: filterString });
   };
@@ -114,7 +124,13 @@ const MoreOptions = ({ onToggle }) => {
         </div>
         <div className="elevator">
           <label htmlFor="elevator">Ashensor: </label>
-          <input type="checkbox" id="elevator" name="elevator" value={true} />
+          <input
+            type="checkbox"
+            id="elevator"
+            name="elevator"
+            defaultValue={selectedElevator}
+            onChange={handleElevator}
+          />
         </div>
         <div className={styles.dropdownSelectors}>
           <select
@@ -144,6 +160,7 @@ const MoreOptions = ({ onToggle }) => {
               Filter{" "}
               <Image
                 src={FilterIcon}
+                alt=""
                 className={`${filterIcon ? styles.showFilterIcon : styles.hideFilterIcon}`}
               />
             </Text>

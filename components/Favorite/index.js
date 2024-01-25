@@ -6,7 +6,7 @@ const FavoriteButton = (props) => {
     const feedId = props.feedId;
   return (
     <div>
-      <Image src={EmptyHeart} className="heart-icon" />
+      <Image src={EmptyHeart} className="heart-icon" alt=""/>
     </div>
   );
 };

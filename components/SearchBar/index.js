@@ -45,14 +45,14 @@ const Search = () => {
           />
           <Button onClick={() => handleSubmit(searchValue)} className={styles.ui1} id="search-button">
             <Text sh2 className={styles.sh2}>
-              Search <Image src={SearchIcon}/>
+              Search <Image src={SearchIcon} alt=""/>
             </Text>
           </Button>
         </div>
         <div className={styles.moreOptions}>
           <Button onClick={showModal}>
             <Text sh2 className={styles.sh2}>
-              Me shume opsione <Image src={DownArrowTriangle} />
+              Me shume opsione <Image src={DownArrowTriangle} alt=""/>
             </Text>
           </Button>
         </div>
