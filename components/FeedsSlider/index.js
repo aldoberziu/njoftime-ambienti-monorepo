@@ -67,7 +67,7 @@ const FeedsSlider = () => {
               <div className={styles.portraitImageContainer}>
                 <Slider /*className="slider"*/ />
               </div>
-              <Link href={`/feeds/${feed._id}`}>
+              {/* <Link href={`/feeds/${feed._id}`}> */}
                 <div className={styles.portraitSpecificsContainer}>
                   <Text ui1 className={styles.title}>
                     {feed.location?.zone
@@ -102,7 +102,7 @@ const FeedsSlider = () => {
                     <FavoriteButton feedId={feed._id} />
                   </div>
                 </div>
-              </Link>
+              {/* </Link> */}
             </div>
           ))}
         </div>

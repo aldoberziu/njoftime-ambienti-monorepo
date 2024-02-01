@@ -8,6 +8,7 @@ const User = mongoose.model(
     timeJoined: { type: Number },
     emails: [String],
     phoneNumbers: [String],
+    favorites: [String],
   })
 );
 

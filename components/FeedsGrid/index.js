@@ -47,10 +47,6 @@ const FeedsGrid = () => {
     setLoading(false);
   }, [searchValue, filterString]);
 
-  // const addToFavorites = () => {
-  //   console.log("add to fav");
-  // };
-
   if (loading) {
     return <Loader />;
   } else {
@@ -81,17 +77,6 @@ const FeedsGrid = () => {
                           })
                         : " "}
                     </Text>
-                    {/* <Text ui3>
-                    Ambienti:{" "}
-                    {feed.structure
-                      ? structures.map((structure) => {
-                          if (feed.structure === structure._id) {
-                            return `${structure.structure}`;
-                          }
-                        })
-                      : " "}{" "}
-                    / {feed.furnishing}
-                  </Text> */}
                     <Text ui3 className={styles.ui3}>
                       Ambienti: {feed.rooms} + {feed.toilet} {feed.garage ? "+ Garazh" : ""} /{" "}
                       {feed.furnishing}

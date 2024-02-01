@@ -1,5 +1,6 @@
 export { default as Checked } from "./checked.svg";
 export { default as EmptyHeart } from "./empty-heart.svg";
+export { default as FilledHeart } from "./filled-heart.svg";
 export { default as Image } from "./image.png";
 export { default as BannerImage } from "./home-banner.png";
 export { default as PortraitCardImg } from "./portrait-card-img.png";

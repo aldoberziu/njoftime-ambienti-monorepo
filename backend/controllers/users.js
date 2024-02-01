@@ -1,6 +1,6 @@
 const Users = require("../models/users");
 const UserMetadata = require("supertokens-node/recipe/usermetadata");
-const supertokens = require("supertokens-node")
+const supertokens = require("supertokens-node");
 
 exports.create = async (req, res, next) => {
   const userId = req.params.id;
@@ -28,7 +28,7 @@ exports.one = async (req, res, next) => {
     const user = await Users.findById(req.params.id);
     res.status(200).json({
       status: "success",
-      user,
+      data: user,
     });
   } catch (err) {
     console.log(err);
@@ -67,10 +67,17 @@ exports.delete = async (req, res, next) => {
   next();
 };
 exports.addToFavourite = async (req, res, next) => {
-  // const userId = req.session.getUserId();
-  // const loggedUser = await Users.findById(userId);
-  // const updatedUser = await Users.findByIdAndUpdate(loggedUser, {
-  //   favorites
-  // })
-  // e lam ktu
+  const { userId, feedId } = req.body;
+  let alreadyFavorited;
+  const loggedUser = await Users.findById(userId);
+  loggedUser.favorites.map((el) => {
+    if(el === feedId){
+      alreadyFavorited = true;
+    }
+  })
+  if(alreadyFavorited === true){
+    await Users.updateOne({ _id: userId }, { $pull: { favorites: feedId } });
+  } else{
+    await Users.updateOne({ _id: userId }, { $push: { favorites: feedId } });
+  }
 };
