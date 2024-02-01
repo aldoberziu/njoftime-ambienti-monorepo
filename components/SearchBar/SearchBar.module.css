@@ -16,7 +16,7 @@
     justify-content: center;
     padding-top: 15px;
 }
-.moreOptions a{
+.moreOptions div{
     text-decoration: none;
     color: white;
 }
@@ -35,7 +35,7 @@
     outline: none;
     padding: 0;
 }
-.searchContainer a{
+.searchContainer div{
     display: flex;
     background-color: #009AA4;
     text-decoration: none;

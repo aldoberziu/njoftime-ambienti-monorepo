@@ -9,13 +9,11 @@ const SaveUser = () => {
       if (await Session.doesSessionExist()) {
         let accessTokenPayload = await Session.getAccessTokenPayloadSecurely();
         await axios.post(getApiDomain() + `/users/${accessTokenPayload.rsub}`);
-        return null;
-      } else {
-        return null;
       }
     }
     doesSessionExist();
   }, []);
+  return (<div></div>);
 };
 
 export default SaveUser;

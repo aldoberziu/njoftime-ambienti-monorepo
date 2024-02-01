@@ -7,6 +7,7 @@
 }
 .filterContainer .resetFilter{
     background-color: #009AA4;
+    color: white;
     width: max-content;
     margin: auto;
     padding: 7px 20px;

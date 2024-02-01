@@ -1,6 +1,6 @@
 import axios from "axios";
 import Link from "next/link.js";
-import { getApiDomain } from "../../config/appInfo"
+import { getApiDomain } from "../../config/appInfo";
 import { useEffect, useState } from "react";
 import styles from "./FeedsSlider.module.css";
 import Text from "../Text";
@@ -18,22 +18,25 @@ const FeedsSlider = () => {
   const [filter, setFilter] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  const getFeeds = async () => {
+    setLoading(true);
     if (sCategory === "" || sCategory === undefined) {
-      axios
-        .get(getApiDomain() + "/feeds")
-        .then((response) => setFeeds(response.data.data));
+      await axios.get(getApiDomain() + "/feeds").then((response) => setFeeds(response.data.data));
       setLoading(false);
       setFilter(false);
     } else {
-      axios
+      await axios
         .get(getApiDomain() + `/feeds?category=${sCategory}`)
         .then((response) => setFeeds(response?.data?.data));
-      setFilter(true);
-      setLoading(false);
-      const filter = document.getElementById("filter-container");
-      filter.scrollIntoView({ behavior: "smooth" });
+        setFilter(true);
+        setLoading(false);
+        const filter = document.getElementById("filter-container");
+        filter.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  useEffect(() => {
+    getFeeds();
   }, [sCategory]);
 
   if (loading) {
@@ -66,7 +69,7 @@ const FeedsSlider = () => {
               </div>
               <Link href={`/feeds/${feed._id}`}>
                 <div className={styles.portraitSpecificsContainer}>
-                <Text ui1 className={styles.title}>
+                  <Text ui1 className={styles.title}>
                     {feed.location?.zone
                       ? zones.map((zone) => {
                           if (feed.location.zone === zone._id) {
@@ -83,10 +86,12 @@ const FeedsSlider = () => {
                       : " "}
                   </Text>
                   <Text ui3 className={styles.ui3}>
-                    Ambienti: {feed.rooms} + {feed.toilet}{" "}
-                    {feed.garage ? "+ Garazh" : ""} / {feed.furnishing}
+                    Ambienti: {feed.rooms} + {feed.toilet} {feed.garage ? "+ Garazh" : ""} /{" "}
+                    {feed.furnishing}
                   </Text>
-                  <Text ui3 className={styles.ui3}>Sipërfaqja: {feed.area} m2</Text>
+                  <Text ui3 className={styles.ui3}>
+                    Sipërfaqja: {feed.area} m2
+                  </Text>
                   <Text ui3 className={styles.ui3}>
                     Kati: {feed.floor}, Ashensor: {feed.elevator ? "Po" : "Jo"}
                   </Text>

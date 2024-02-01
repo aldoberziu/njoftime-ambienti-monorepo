@@ -1,6 +1,6 @@
 const Users = require("../models/users");
 const UserMetadata = require("supertokens-node/recipe/usermetadata");
-const supertokens = require("supertokens-node");
+const supertokens = require("supertokens-node")
 
 exports.create = async (req, res, next) => {
   const userId = req.params.id;

@@ -1,6 +1,6 @@
 import axios from "axios";
 import Link from "next/link.js";
-import { getApiDomain } from "../../config/appInfo"
+import { getApiDomain } from "../../config/appInfo";
 import { useEffect, useState } from "react";
 import styles from "./FeedsGrid.module.css";
 import Text from "../Text";
@@ -18,11 +18,12 @@ const FeedsGrid = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     if (searchValue !== "" && searchValue !== undefined) {
       try {
         axios
-        .get(getApiDomain() + `/feeds/search/${searchValue}`)
-        .then((response) => setFeeds(response?.data?.data));
+          .get(getApiDomain() + `/feeds/search/${searchValue}`)
+          .then((response) => setFeeds(response?.data?.data));
         const grid = document.getElementById("feeds-grid");
         grid.scrollIntoView({ behavior: "smooth" });
       } catch (err) {
@@ -34,7 +35,7 @@ const FeedsGrid = () => {
           .get(getApiDomain() + `/feeds/filter${filterString}`)
           .then((response) => setFeeds(response?.data?.data));
       } catch (err) {
-        console.log(err);
+        console.log(err.message);
       }
     } else {
       try {
@@ -50,34 +51,37 @@ const FeedsGrid = () => {
   //   console.log("add to fav");
   // };
 
-  if (feeds) {
-    return (
-      <div>
-        <div className={styles.displayBlock2x} id="feeds-grid">
-          {feeds.map((feed) => (
-            <div className={styles.singleContainer} key={feed._id}>
-              <div className={styles.imageContainer}>
-                <Slider /*className="slider"*/ />
-              </div>
-              <Link href={`/feeds/${feed._id}`}>
-                <div className={styles.specificsContainer}>
-                  <Text ui1 className={styles.title}>
-                    {feed.location?.zone
-                      ? zones.map((zone) => {
-                          if (feed.location.zone === zone._id) {
-                            return `${zone.zone}, `;
-                          }
-                        })
-                      : ""}
-                    {feed.location?.city
-                      ? cities.map((city) => {
-                          if (feed.location.city === city._id) {
-                            return `${city.city}`;
-                          }
-                        })
-                      : " "}
-                  </Text>
-                  {/* <Text ui3>
+  if (loading) {
+    return <Loader />;
+  } else {
+    if (feeds) {
+      return (
+        <div>
+          <div className={styles.displayBlock2x} id="feeds-grid">
+            {feeds.map((feed) => (
+              <div className={styles.singleContainer} key={feed._id}>
+                <div className={styles.imageContainer}>
+                  <Slider /*className="slider"*/ />
+                </div>
+                <Link href={`/feeds/${feed._id}`}>
+                  <div className={styles.specificsContainer}>
+                    <Text ui1 className={styles.title}>
+                      {feed.location?.zone
+                        ? zones.map((zone) => {
+                            if (feed.location.zone === zone._id) {
+                              return `${zone.zone}, `;
+                            }
+                          })
+                        : ""}
+                      {feed.location?.city
+                        ? cities.map((city) => {
+                            if (feed.location.city === city._id) {
+                              return `${city.city}`;
+                            }
+                          })
+                        : " "}
+                    </Text>
+                    {/* <Text ui3>
                     Ambienti:{" "}
                     {feed.structure
                       ? structures.map((structure) => {
@@ -88,27 +92,30 @@ const FeedsGrid = () => {
                       : " "}{" "}
                     / {feed.furnishing}
                   </Text> */}
-                  <Text ui3 className={styles.ui3}>
-                    Ambienti: {feed.rooms} + {feed.toilet} {feed.garage ? "+ Garazh" : ""} /{" "}
-                    {feed.furnishing}
-                  </Text>
-                  <Text ui3 className={styles.ui3}>Sipërfaqja: {feed.area} m2</Text>
-                  <Text ui3 className={styles.ui3}>
-                    Kati: {feed.floor}, Ashensor: {feed.elevator ? "Po" : "Jo"}
-                  </Text>
-                  <div className={styles.bottomContainer}>
-                    <Text ui1>
-                      <strong>${feed.price}</strong>/muaj
+                    <Text ui3 className={styles.ui3}>
+                      Ambienti: {feed.rooms} + {feed.toilet} {feed.garage ? "+ Garazh" : ""} /{" "}
+                      {feed.furnishing}
                     </Text>
-                    <FavoriteButton feedId={feed._id} />
+                    <Text ui3 className={styles.ui3}>
+                      Sipërfaqja: {feed.area} m2
+                    </Text>
+                    <Text ui3 className={styles.ui3}>
+                      Kati: {feed.floor}, Ashensor: {feed.elevator ? "Po" : "Jo"}
+                    </Text>
+                    <div className={styles.bottomContainer}>
+                      <Text ui1>
+                        <strong>${feed.price}</strong>/muaj
+                      </Text>
+                      <FavoriteButton feedId={feed._id} />
+                    </div>
                   </div>
-                </div>
-              </Link>
-            </div>
-          ))}
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 
   return (
