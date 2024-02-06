@@ -3,28 +3,20 @@ import Text from "../Text";
 import Image from "next/image";
 import axios from "axios";
 import styles from "./Favorite.module.css";
-import Session from "supertokens-web-js/recipe/session";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getApiDomain } from "../../config/appInfo";
+import { useSelector } from "react-redux";
 
-const FavoriteButton = (props) => {
+const FavoriteButton = ({favorite, feedId}) => {
+  const user = useSelector((state) => state.loggedUser);
+  const { userId } = user._id;
+  console.log({user})
+
   const router = useRouter();
-  const { feedId } = props;
-
-  const [userId, setUserId] = useState("");
-  const [userFavorites, setUserFavorites] = useState([]);
-
-  async function doesSessionExist() {
-    if (await Session.doesSessionExist()) {
-      let accessTokenPayload = await Session.getAccessTokenPayloadSecurely();
-      let userID = accessTokenPayload.rsub;
-      setUserId(userID);
-    }
-  }
 
   const addToFavorites = async () => {
-    if (userId) {
+    if (user._id !== "") {
       await axios.patch(getApiDomain() + `/users/addToFavorite`, {
         userId,
         feedId,
@@ -33,24 +25,11 @@ const FavoriteButton = (props) => {
       router.push("/auth");
     }
   };
-
-  useEffect(() => {
-    doesSessionExist();
-  }, []);
-  useEffect(() => {
-    if (userId !== "") {
-      axios
-        .get(getApiDomain() + `/users/${userId}`)
-        .then((res) => setUserFavorites(res.data.data.favorites))
-        .catch((err) => console.log(err));
-    }
-  });
   return (
     <div onClick={addToFavorites}>
-      {(userFavorites || []).includes(feedId) && (
+      {favorite ? (
         <Image src={FilledHeart} className={styles.heartIcon} alt="" />
-      )}
-      {!(userFavorites || []).includes(feedId) && (
+      ) : (
         <Image src={EmptyHeart} className={styles.heartIcon} alt="" />
       )}
     </div>

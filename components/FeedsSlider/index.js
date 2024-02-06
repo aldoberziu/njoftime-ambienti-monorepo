@@ -11,8 +11,11 @@ import Loader from "../Loader";
 import FavoriteButton from "../Favorite";
 import { cities, zones, structures } from "../../Constants";
 
-const FeedsSlider = () => {
+const FeedsSlider = (props) => {
+  const { userFavorites } = props;
   const sCategory = useSelector((state) => state.category);
+  const loggedUSER = useSelector((state) => state.loggedUser);
+  console.log(loggedUSER);
 
   const [feeds, setFeeds] = useState([]);
   const [filter, setFilter] = useState(false);
@@ -28,10 +31,10 @@ const FeedsSlider = () => {
       await axios
         .get(getApiDomain() + `/feeds?category=${sCategory}`)
         .then((response) => setFeeds(response?.data?.data));
-        setFilter(true);
-        setLoading(false);
-        const filter = document.getElementById("filter-container");
-        filter.scrollIntoView({ behavior: "smooth" });
+      setFilter(true);
+      setLoading(false);
+      const filter = document.getElementById("filter-container");
+      filter.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -68,40 +71,45 @@ const FeedsSlider = () => {
                 <Slider /*className="slider"*/ />
               </div>
               {/* <Link href={`/feeds/${feed._id}`}> */}
-                <div className={styles.portraitSpecificsContainer}>
-                  <Text ui1 className={styles.title}>
-                    {feed.location?.zone
-                      ? zones.map((zone) => {
-                          if (feed.location.zone === zone._id) {
-                            return `${zone.zone}, `;
-                          }
-                        })
-                      : ""}
-                    {feed.location?.city
-                      ? cities.map((city) => {
-                          if (feed.location.city === city._id) {
-                            return `${city.city}`;
-                          }
-                        })
-                      : " "}
+              <div className={styles.portraitSpecificsContainer}>
+                <Text ui1 className={styles.title}>
+                  {feed.location?.zone
+                    ? zones.map((zone) => {
+                        if (feed.location.zone === zone._id) {
+                          return `${zone.zone}, `;
+                        }
+                      })
+                    : ""}
+                  {feed.location?.city
+                    ? cities.map((city) => {
+                        if (feed.location.city === city._id) {
+                          return `${city.city}`;
+                        }
+                      })
+                    : " "}
+                </Text>
+                <Text ui3 className={styles.ui3}>
+                  Ambienti: {feed.rooms} + {feed.toilet} {feed.garage ? "+ Garazh" : ""} /{" "}
+                  {feed.furnishing}
+                </Text>
+                <Text ui3 className={styles.ui3}>
+                  Sipërfaqja: {feed.area} m2
+                </Text>
+                <Text ui3 className={styles.ui3}>
+                  Kati: {feed.floor}, Ashensor: {feed.elevator ? "Po" : "Jo"}
+                </Text>
+                <div className={styles.bottomContainer}>
+                  <Text ui1>
+                    <strong>${feed.price}</strong>/muaj
                   </Text>
-                  <Text ui3 className={styles.ui3}>
-                    Ambienti: {feed.rooms} + {feed.toilet} {feed.garage ? "+ Garazh" : ""} /{" "}
-                    {feed.furnishing}
-                  </Text>
-                  <Text ui3 className={styles.ui3}>
-                    Sipërfaqja: {feed.area} m2
-                  </Text>
-                  <Text ui3 className={styles.ui3}>
-                    Kati: {feed.floor}, Ashensor: {feed.elevator ? "Po" : "Jo"}
-                  </Text>
-                  <div className={styles.bottomContainer}>
-                    <Text ui1>
-                      <strong>${feed.price}</strong>/muaj
-                    </Text>
+                  {(userFavorites || []).includes(feed._id) && (
+                    <FavoriteButton favorite feedId={feed._id} />
+                  )}
+                  {!(userFavorites || []).includes(feed._id) && (
                     <FavoriteButton feedId={feed._id} />
-                  </div>
+                  )}
                 </div>
+              </div>
               {/* </Link> */}
             </div>
           ))}

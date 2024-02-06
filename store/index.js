@@ -1,18 +1,17 @@
 import { createStore } from "redux";
-// import { createSlice } from "@reduxjs/toolkit";
+// import { create } from 'zustand'
+// si reduxi tha felo
+// const useStore = create((set) => ({
+//   searchValue: '',
+//   lastName: '',
+//   updateSearchValue: (searchValue) => set(() => ({ searchValue: searchValue })),
+//   updateLastName: (lastName) => set(() => ({ lastName: lastName })),
+// }))
 
-// createSlice({
-//     name: 'categoryChanger',
-//     initialState: {category: ''},
-//     reducers: {
-//         changeCategory(state, action){ //this instead of if statement
-//             state.category = action.category
-//         }
-//     }
-// })
-// see 18.18 video to see how to export this new way of writing a lot of states
-
-const filterCategoriesReducer = (state = { category: '', searchValue: '' , filterString: ''}, action) => {
+const filterCategoriesReducer = (
+  state = { category: "", searchValue: "", filterString: "", loggedUserId: "", loggedUser: {} },
+  action
+) => {
   if (action.type === "changeCategory") {
     return {
       category: action.category,
@@ -28,9 +27,20 @@ const filterCategoriesReducer = (state = { category: '', searchValue: '' , filte
       filterString: action.filterString,
     };
   }
+  if (action.type === "loggedUserId") {
+    return {
+      loggedUserId: action.loggedUserId,
+    };
+  }
+  if (action.type === "loggedUser") {
+    return {
+      loggedUser: action.loggedUser,
+    };
+  }
   return state;
 };
 
 const store = createStore(filterCategoriesReducer);
 
 export default store;
+// export default useStore;

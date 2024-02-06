@@ -28,7 +28,7 @@ exports.one = async (req, res, next) => {
     const user = await Users.findById(req.params.id);
     res.status(200).json({
       status: "success",
-      data: user,
+      user,
     });
   } catch (err) {
     console.log(err);
@@ -71,13 +71,13 @@ exports.addToFavourite = async (req, res, next) => {
   let alreadyFavorited;
   const loggedUser = await Users.findById(userId);
   loggedUser.favorites.map((el) => {
-    if(el === feedId){
+    if (el === feedId) {
       alreadyFavorited = true;
     }
-  })
-  if(alreadyFavorited === true){
+  });
+  if (alreadyFavorited === true) {
     await Users.updateOne({ _id: userId }, { $pull: { favorites: feedId } });
-  } else{
+  } else {
     await Users.updateOne({ _id: userId }, { $push: { favorites: feedId } });
   }
 };

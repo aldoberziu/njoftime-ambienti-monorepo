@@ -19,7 +19,8 @@
         "redux": "^5.0.0",
         "sass": "^1.69.5",
         "supertokens-auth-react": "latest",
-        "supertokens-node": "latest"
+        "supertokens-node": "latest",
+        "zustand": "^4.5.0"
     },
     "devDependencies": {
         "@types/node": "18.7.13",
