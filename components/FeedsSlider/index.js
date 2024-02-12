@@ -1,59 +1,41 @@
-import axios from "axios";
-import Link from "next/link.js";
-import { getApiDomain } from "../../config/appInfo";
-import { useEffect, useState } from "react";
 import styles from "./FeedsSlider.module.css";
 import Text from "../Text";
-import { EmptyHeart } from "../../icons";
 import Slider from "../Slider";
-import { useSelector } from "react-redux";
 import Loader from "../Loader";
 import FavoriteButton from "../Favorite";
-import { cities, zones, structures } from "../../Constants";
+import { cities, zones, categories, structures, countries } from "../../Constants";
+import { useRouter } from "next/router";
 
 const FeedsSlider = (props) => {
-  const { userFavorites } = props;
-  const sCategory = useSelector((state) => state.category);
-  const loggedUSER = useSelector((state) => state.loggedUser);
-  console.log(loggedUSER);
+  const router = useRouter();
+  let { feeds, loading, filter } = props;
 
-  const [feeds, setFeeds] = useState([]);
-  const [filter, setFilter] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  const getFeeds = async () => {
-    setLoading(true);
-    if (sCategory === "" || sCategory === undefined) {
-      await axios.get(getApiDomain() + "/feeds").then((response) => setFeeds(response.data.data));
-      setLoading(false);
-      setFilter(false);
-    } else {
-      await axios
-        .get(getApiDomain() + `/feeds?category=${sCategory}`)
-        .then((response) => setFeeds(response?.data?.data));
-      setFilter(true);
-      setLoading(false);
-      const filter = document.getElementById("filter-container");
-      filter.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  useEffect(() => {
-    getFeeds();
-  }, [sCategory]);
+  let feedsData = feeds.map((feed) => ({
+    ...feed,
+    category: categories.find(({ _id }) => _id === feed.category).category,
+    structure: structures.find(({ _id }) => _id === feed.structure).structure,
+    location: {
+      city: cities.find(({ _id }) => _id === feed.location.city).city,
+      zone: zones.find(({ _id }) => _id === feed.location.zone).zone,
+      country: countries.find(({ _id }) => _id === feed.location.country).country,
+    },
+  }));
 
   if (loading) {
     return <Loader />;
   } else if (feeds.length === 0 && loading === false) {
     //skam dizajn per ket
     return (
-      <div className={styles.centerEl}>
-        <Text sh2>Nuk u gjet asnjë rezultat.</Text>
-      </div>
+      <>
+        <div className={styles.centerEl}>
+          <Text sh2>Nuk u gjet asnjë rezultat.</Text>
+        </div>
+        <div className={styles.displayFlex} id="feeds-slider"></div>
+      </>
     );
   }
 
-  if (feeds) {
+  if (feedsData) {
     return (
       <div>
         {filter && loading === false && (
@@ -64,30 +46,21 @@ const FeedsSlider = (props) => {
             </Text>
           </div>
         )}
-        <div className={styles.displayFlex}>
-          {feeds.map((feed) => (
-            <div className={styles.portraitSingleContainer} key={feed._id}>
+        <div className={styles.sliderContainer} id="feeds-slider">
+          {feedsData.map((feed) => (
+            <div
+              className={styles.portraitSingleContainer}
+              onClick={() => router.push(`/feeds/${feed._id}`)}
+              key={feed._id}
+            >
               <div className={styles.portraitImageContainer}>
                 <Slider /*className="slider"*/ />
               </div>
-              {/* <Link href={`/feeds/${feed._id}`}> */}
               <div className={styles.portraitSpecificsContainer}>
                 <Text ui1 className={styles.title}>
-                  {feed.location?.zone
-                    ? zones.map((zone) => {
-                        if (feed.location.zone === zone._id) {
-                          return `${zone.zone}, `;
-                        }
-                      })
-                    : ""}
-                  {feed.location?.city
-                    ? cities.map((city) => {
-                        if (feed.location.city === city._id) {
-                          return `${city.city}`;
-                        }
-                      })
-                    : " "}
+                  {`${feed.location?.zone}, ${feed.location?.city}`/*, ${feed.location?.country}*/}
                 </Text>
+                {/* <Text ui3>{feed.category}</Text> */}
                 <Text ui3 className={styles.ui3}>
                   Ambienti: {feed.rooms} + {feed.toilet} {feed.garage ? "+ Garazh" : ""} /{" "}
                   {feed.furnishing}
@@ -100,17 +73,18 @@ const FeedsSlider = (props) => {
                 </Text>
                 <div className={styles.bottomContainer}>
                   <Text ui1>
-                    <strong>${feed.price}</strong>/muaj
+                    <strong>
+                      {feed.currency === "EUR"
+                        ? `€${feed.price}`
+                        : feed.currency === "USD"
+                        ? `$${feed.price}`
+                        : `${feed.price}L`}
+                    </strong>
+                    /Muaj
                   </Text>
-                  {(userFavorites || []).includes(feed._id) && (
-                    <FavoriteButton favorite feedId={feed._id} />
-                  )}
-                  {!(userFavorites || []).includes(feed._id) && (
-                    <FavoriteButton feedId={feed._id} />
-                  )}
+                  <FavoriteButton feedId={feed._id} />
                 </div>
               </div>
-              {/* </Link> */}
             </div>
           ))}
         </div>

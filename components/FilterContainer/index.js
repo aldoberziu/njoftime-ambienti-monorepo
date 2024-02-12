@@ -3,12 +3,18 @@ import { categories } from "../../Constants";
 import styles from "./FilterContainer.module.css";
 import Button from "../Button";
 import { useDispatch } from "react-redux";
+import { categoryActions } from "../../store";
+import { useState } from "react";
 
-const FilterContainer = () => {
+const FilterContainer = (props) => {
   const dispatch = useDispatch();
+  const { filter: parentFilter } = props;
+  const [filter, setFilter] = useState(parentFilter);
 
   const resetCategory = () => {
-    dispatch({ type: "changeCategory", category: "" });
+    dispatch(categoryActions.category(""));
+    setFilter(false);
+    props.retrieveFilter(filter);
   };
   return (
     <div className={styles.filterContainer} id="filter-container">
@@ -17,8 +23,8 @@ const FilterContainer = () => {
       </div>
       <div className={styles.filterCategoriesContainer}>
         <div className={styles.filterCategories}>
-          {categories.map((el) => (
-            <FilterEl category={el} />
+          {categories.map((el, index) => (
+            <FilterEl category={el} key={index}/>
           ))}
         </div>
       </div>

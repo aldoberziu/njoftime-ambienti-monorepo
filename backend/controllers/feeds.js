@@ -33,52 +33,53 @@ exports.one = async (req, res, next) => {
   next();
 };
 exports.filterOptions = async (req, res, next) => {
-  let { city, zone, structure, minP, maxP, elevator } = req.query;
+  // let { city, zone, structure, minP, maxP, elevator } = req.query;
+  // console.log(req.query);
 
-  let feeds = [];
-  let filteredFeeds = [];
-  let matchStrQuery = {};
-  let matchNumQuery = {};
-  matchStrQuery.$or = [];
-  matchNumQuery.$and = [];
-  if (!!city || !!zone || !!structure || !!elevator) {
-    if (!!city) {
-      matchStrQuery.$or.push({ "location.city": { $regex: `^${city}$` } });
-    }
-    if (!!zone) {
-      matchStrQuery.$or.push({ "location.zone": { $regex: `^${zone}$` } });
-    }
-    if (!!structure) {
-      matchStrQuery.$or.push({ structure: { $regex: `^${structure}$` } });
-    }
-    if (elevator === "true") {
-      matchStrQuery.$or.push({ elevator: true });
-    }
-  }
-  if (!!minP || !!maxP) {
-    if (!!minP) {
-      matchNumQuery.$and.push({ price: { $gt: Number(minP) } });
-    }
-    if (!!maxP) {
-      matchNumQuery.$and.push({ price: { $lt: Number(maxP) } });
-    }
-  }
+  // let feeds = [];
+  // let filteredFeeds = [];
+  // let matchStrQuery = {};
+  // let matchNumQuery = {};
+  // matchStrQuery.$or = [];
+  // matchNumQuery.$and = [];
+  // if (!!city || !!zone || !!structure || !!elevator) {
+  //   if (!!city) {
+  //     matchStrQuery.$or.push({ "location.city": { $regex: `^${city}$` } });
+  //   }
+  //   if (!!zone) {
+  //     matchStrQuery.$or.push({ "location.zone": { $regex: `^${zone}$` } });
+  //   }
+  //   if (!!structure) {
+  //     matchStrQuery.$or.push({ structure: { $regex: `^${structure}$` } });
+  //   }
+  //   if (elevator === "true") {
+  //     matchStrQuery.$or.push({ elevator: true });
+  //   }
+  // }
+  // if (!!minP || !!maxP) {
+  //   if (!!minP) {
+  //     matchNumQuery.$and.push({ price: { $gt: Number(minP) } });
+  //   }
+  //   if (!!maxP) {
+  //     matchNumQuery.$and.push({ price: { $lt: Number(maxP) } });
+  //   }
+  // }
 
-  if (matchNumQuery.$and.length !== 0) {
-    filteredFeeds = await Feeds.aggregate([{ $match: matchNumQuery }]);
-  }
-  if (matchStrQuery.$or.length !== 0) {
-    filteredFeeds = await Feeds.aggregate([{ $match: matchStrQuery }]);
-  }
-  if (filteredFeeds.length !== 0) {
-    for (let i = 0; i < filteredFeeds.length; i++) {
-      feeds.push(filteredFeeds[i]);
-    }
-  }
-
+  // if (matchNumQuery.$and.length !== 0) {
+  //   filteredFeeds = await Feeds.aggregate([{ $match: matchNumQuery }]);
+  // }
+  // if (matchStrQuery.$or.length !== 0) {
+  //   filteredFeeds = await Feeds.aggregate([{ $match: matchStrQuery }]);
+  // };
+  // if (filteredFeeds.length !== 0) {
+  //   for (let i = 0; i < filteredFeeds.length; i++) {
+  //     feeds.push(filteredFeeds[i]);
+  //   }
+  // }
+  
   res.status(200).json({
     status: "success",
-    data: feeds,
+    data: "feeds",
   });
   next();
 };

@@ -1,7 +1,7 @@
-const Feed = require("../models/feeds");
+const Feeds = require("../models/feeds");
 
 const isFeedExpiring = async (req, res, next) => {
-  const feed = await Feed.find();
+  const feed = await Feeds.findById(req.params.id);
   const currentDate = Date.now();
   
   //check if it is his feed that is expiring

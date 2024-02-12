@@ -8,6 +8,7 @@ import Text from "../Text";
 import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { FilterIcon } from "../../icons";
+import { filterActions } from "../../store";
 
 const MoreOptions = ({ onToggle }) => {
   const dispatch = useDispatch();
@@ -79,13 +80,22 @@ const MoreOptions = ({ onToggle }) => {
         ? (filterString = filterString + `maxP=${priceRange[1]}`)
         : (filterString = filterString + `&maxP=${priceRange[1]}`);
     }
+    if (floorRange[0] !== 0) {
+      filterString === "/?"
+        ? (filterString = filterString + `minF=${floorRange[0]}`)
+        : (filterString = filterString + `&minF=${floorRange[0]}`);
+    }
+    if (floorRange[1] !== 10) {
+      filterString === "/?"
+        ? (filterString = filterString + `maxF=${floorRange[1]}`)
+        : (filterString = filterString + `&maxF=${floorRange[1]}`);
+    }
     if (!!selectedElevator) {
       filterString === "/?"
         ? (filterString = filterString + "elevator=" + selectedElevator)
         : (filterString = filterString + "&elevator=" + selectedElevator);
-      console.log(filterString);
-    }
-    dispatch({ type: "filterString", filterString: filterString });
+      }
+    dispatch(filterActions.filter(filterString))
   };
   const showIcon = () => {
     setFilterIcon(true);

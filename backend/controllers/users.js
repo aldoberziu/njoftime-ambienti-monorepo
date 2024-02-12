@@ -68,6 +68,7 @@ exports.delete = async (req, res, next) => {
 };
 exports.addToFavourite = async (req, res, next) => {
   const { userId, feedId } = req.body;
+  console.log(userId);
   let alreadyFavorited;
   const loggedUser = await Users.findById(userId);
   loggedUser.favorites.map((el) => {

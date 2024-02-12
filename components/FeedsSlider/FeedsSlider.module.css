@@ -1,43 +1,56 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
 
-.displayFlex{
-    display: flex;
+.sliderContainer {
+  /* display: grid; */
+  /* grid-template-columns: auto auto auto auto; */
+  /* justify-items: center; */
+  display: flex;
+  justify-content: space-between;
+  gap: 50px;
+  overflow-x: scroll;
+  padding: 5px;
 }
-.portraitSingleContainer{
-    display: flex;
-    flex-direction: column;
-    grid-template-columns: 6fr 5fr;
-    margin: 30px;
-    /* border: 1px solid rgba(152, 152, 152, 0.2); */
-    padding: 0;
-    border-radius: 6px;
-    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25), 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+.sliderContainer::-webkit-scrollbar {
+  display: none;
 }
-.portraitSingleContainer a{
-    text-decoration: none;
-    color: black;
+.portraitSingleContainer {
+  display: flex;
+  flex-direction: column;
+  grid-template-columns: 6fr 5fr;
+  margin: auto;
+  width: max-content;
+  cursor: pointer;
+  /* border: 1px solid rgba(152, 152, 152, 0.2); */
+  padding: 0;
+  border-radius: 6px;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25), 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
 }
-.portraitSpecificsContainer{
-    padding: 0 30px 30px 12px;
+.portraitSingleContainer a {
+  text-decoration: none;
+  color: black;
 }
-.portraitSpecificsContainer .title{
-    font-weight: 500;
-    margin: 13px 0 9px 0px;
+.portraitSpecificsContainer {
+  padding: 0 12px 20px;
 }
-.portraitSpecificsContainer .ui3{
-    font-family: 'Ubuntu', sans-serif;
-    color: #585858;
-    margin-bottom: 6px;
+.portraitSpecificsContainer .title {
+  font-weight: 500;
+  margin: 13px 0 9px 0px;
 }
-.portraitSpecificsContainer .bottomContainer{
-    display: flex;
-    justify-content: space-between;
-    margin-top: 13px;
+.portraitSpecificsContainer .ui3 {
+  font-family: "Ubuntu", sans-serif;
+  color: #585858;
+  margin-bottom: 6px;
 }
-.portraitImageContainer{
-    width: inherit;
+.portraitSpecificsContainer .bottomContainer {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 13px;
 }
-.centerEl{
-    display: flex;
-    justify-content: center;
-  }
+.portraitImageContainer {
+  width: inherit;
+}
+.centerEl {
+  display: flex;
+  justify-content: center;
+}

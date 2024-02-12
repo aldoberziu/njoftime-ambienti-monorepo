@@ -2,13 +2,15 @@ import styles from './FilterEl.module.css';
 import Text from '../Text';
 import Image from 'next/image'
 import { useDispatch } from 'react-redux';
+import { categoryActions } from "../../store";
+
 const FilterEl = ( props ) => {
   const category = props.category;
   
   const dispatch = useDispatch();
 
   const changeCategory = (id) => {
-    dispatch({ type: 'changeCategory', category: id});
+    dispatch(categoryActions.category(id))
   }
 
   return (

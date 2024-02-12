@@ -13,13 +13,16 @@
     border: 1px solid rgba(69, 69, 69, 0.6);
     padding: 0px 0px 0px 0px;
     border-radius: 15px;
+    cursor: pointer;
 }
-.singleContainer a{
+.singleContainer{
     text-decoration: none;
     color: black;
-    padding: 15px 40px 5px 0px;
 }
 .specificsContainer{
+    display: flex;
+    flex-direction: column;
+    padding: 15px 40px 10px 0px;
     margin-left: 38px;
 }
 .specificsContainer .title{

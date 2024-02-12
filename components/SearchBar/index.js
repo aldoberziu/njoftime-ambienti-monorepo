@@ -5,6 +5,7 @@ import { SearchIcon } from "../../icons";
 import styles from "./SearchBar.module.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { searchActions } from '../../store/index';
 import { DownArrowTriangle } from "../../icons";
 import MoreOptions from "../MoreOptions";
 
@@ -14,7 +15,7 @@ const Search = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = (searchValue) => {
-    dispatch({ type: "searchValue", searchValue: searchValue });
+    dispatch(searchActions.search(searchValue))
   };
 
   const handleKeyPress = (e) => {

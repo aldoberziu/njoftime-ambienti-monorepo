@@ -24,8 +24,8 @@ export const structures = [
   { _id: "6", structure: "Vila luksoze"},
 ];
 export const countries = [
-  { _id: "1", country: "Shqiperi" },
-  { _id: "2", country: "Kosove" },
+  { _id: "1", country: "Shqipëri" },
+  { _id: "2", country: "Kosovë" },
   { country: "Maqedoni", _id: "3" },
 ];
 export const cities = [
@@ -133,4 +133,6 @@ export const zones = [
   { _id: "33", zone: "Shirokë", cityId: "3" },
   { _id: "34", zone: "Qendër", cityId: "3" },
   { _id: "35", zone: "Zona Periferike", cityId: "3" },
+  { _id: "36", zone: "Qendër", cityId: "20" },
+  { _id: "37", zone: "Zona Periferike", cityId: "20" },
 ];
