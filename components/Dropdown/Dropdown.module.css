@@ -1,0 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Hanuman:wght@100;300;400;700;900&family=Work+Sans&display=swap");
+
+.select {
+  font-size: 15px;
+  font-family: "Hanuman", serif;
+  line-height: 22px;
+  color: #929090;
+  padding: 6px 7px;
+  outline: none;
+}

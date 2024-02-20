@@ -18,3 +18,4 @@ export { default as FilterIcon } from "./filter-icon.svg";
 export { default as DownArrowTriangle } from "./down-arrow-triangle.svg";
 export { default as DownArrow } from "./down-arrow.svg";
 export { default as UpArrow } from "./up-arrow.svg";
+export { default as ImageUploader } from "./image-uploader.svg";

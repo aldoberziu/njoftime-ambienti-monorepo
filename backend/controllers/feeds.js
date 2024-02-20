@@ -1,14 +1,28 @@
 const Feeds = require("../models/feeds");
 const Plans = require("../models/plans");
+const Users = require("../models/users");
 const ApiFeatures = require("../utils/apiFeatures");
 const { structures } = require("../constants");
+const Session = require("supertokens-node/recipe/session");
 
 exports.create = async (req, res, next) => {
+  // let session = await Session.getSession(req, res);
+  // let userId = session.getUserId();
+  let userId = "jsdhf";
+
   const standardPlan = await Plans.findById("1");
   req.body.createdAt = Date.now().valueOf();
   req.body.expiresAt = req.body.createdAt + standardPlan.duration;
+  if (!req.body.company) req.body.company = userId;
 
   const newFeed = await Feeds.create(req.body);
+  const idString = newFeed._id.toHexString();
+
+  await Users.findByIdAndUpdate(
+    req.body.company ? req.body.company : userId,
+    { $push: { myFeeds: idString } },
+    { new: true }
+  );
 
   res.status(201).json({
     status: "success",
@@ -17,7 +31,9 @@ exports.create = async (req, res, next) => {
   next();
 };
 exports.one = async (req, res, next) => {
-  const feed = await Feeds.findById(req.params.id);
+  let feed = await Feeds.findById(req.params.id);
+
+  // feed.populate({ path: 'company'});
 
   if (!feed) {
     res.status(404).json({
@@ -33,53 +49,53 @@ exports.one = async (req, res, next) => {
   next();
 };
 exports.filterOptions = async (req, res, next) => {
-  // let { city, zone, structure, minP, maxP, elevator } = req.query;
-  // console.log(req.query);
+  let { city, zone, structure, minP, maxP, elevator } = req.query;
+  console.log(req.query);
 
-  // let feeds = [];
-  // let filteredFeeds = [];
-  // let matchStrQuery = {};
-  // let matchNumQuery = {};
-  // matchStrQuery.$or = [];
-  // matchNumQuery.$and = [];
-  // if (!!city || !!zone || !!structure || !!elevator) {
-  //   if (!!city) {
-  //     matchStrQuery.$or.push({ "location.city": { $regex: `^${city}$` } });
-  //   }
-  //   if (!!zone) {
-  //     matchStrQuery.$or.push({ "location.zone": { $regex: `^${zone}$` } });
-  //   }
-  //   if (!!structure) {
-  //     matchStrQuery.$or.push({ structure: { $regex: `^${structure}$` } });
-  //   }
-  //   if (elevator === "true") {
-  //     matchStrQuery.$or.push({ elevator: true });
-  //   }
-  // }
-  // if (!!minP || !!maxP) {
-  //   if (!!minP) {
-  //     matchNumQuery.$and.push({ price: { $gt: Number(minP) } });
-  //   }
-  //   if (!!maxP) {
-  //     matchNumQuery.$and.push({ price: { $lt: Number(maxP) } });
-  //   }
-  // }
+  let feeds = [];
+  let filteredFeeds = [];
+  let matchStrQuery = {};
+  let matchNumQuery = {};
+  matchStrQuery.$or = [];
+  matchNumQuery.$and = [];
+  if (!!city || !!zone || !!structure || !!elevator) {
+    if (!!city) {
+      matchStrQuery.$or.push({ "location.city": { $regex: `^${city}$` } });
+    }
+    if (!!zone) {
+      matchStrQuery.$or.push({ "location.zone": { $regex: `^${zone}$` } });
+    }
+    if (!!structure) {
+      matchStrQuery.$or.push({ structure: { $regex: `^${structure}$` } });
+    }
+    if (elevator === "true") {
+      matchStrQuery.$or.push({ elevator: true });
+    }
+  }
+  if (!!minP || !!maxP) {
+    if (!!minP) {
+      matchNumQuery.$and.push({ price: { $gt: Number(minP) } });
+    }
+    if (!!maxP) {
+      matchNumQuery.$and.push({ price: { $lt: Number(maxP) } });
+    }
+  }
 
-  // if (matchNumQuery.$and.length !== 0) {
-  //   filteredFeeds = await Feeds.aggregate([{ $match: matchNumQuery }]);
-  // }
-  // if (matchStrQuery.$or.length !== 0) {
-  //   filteredFeeds = await Feeds.aggregate([{ $match: matchStrQuery }]);
-  // };
-  // if (filteredFeeds.length !== 0) {
-  //   for (let i = 0; i < filteredFeeds.length; i++) {
-  //     feeds.push(filteredFeeds[i]);
-  //   }
-  // }
-  
+  if (matchNumQuery.$and.length !== 0) {
+    filteredFeeds = await Feeds.aggregate([{ $match: matchNumQuery }]);
+  }
+  if (matchStrQuery.$or.length !== 0) {
+    filteredFeeds = await Feeds.aggregate([{ $match: matchStrQuery }]);
+  };
+  if (filteredFeeds.length !== 0) {
+    for (let i = 0; i < filteredFeeds.length; i++) {
+      feeds.push(filteredFeeds[i]);
+    }
+  }
+
   res.status(200).json({
     status: "success",
-    data: "feeds",
+    data: feeds,
   });
   next();
 };
@@ -135,6 +151,7 @@ exports.all = async (req, res, next) => {
 
   res.status(200).json({
     status: "success",
+    results: feeds.length,
     data: feeds,
   });
   next();

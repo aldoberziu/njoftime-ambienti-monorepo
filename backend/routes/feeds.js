@@ -2,6 +2,8 @@ const express = require("express");
 const feeds = require("../controllers/feeds");
 const plans = require("../controllers/plans");
 const isExpiring = require("../utils/isExpiring");
+const deleteExpired = require("../utils/deleteExpiredFeeds");
+const { verifySession } = require("supertokens-node/recipe/session/framework/express");
 
 const router = express.Router();
 
@@ -12,6 +14,6 @@ router.route("/filter").get(feeds.filterOptions);
 
 router.route("/search/:searchValue").get(feeds.search);
 
-router.route("/").get(feeds.all).post(feeds.create);
+router.route("/").get( deleteExpired, feeds.all).post(feeds.create);
 
 module.exports = router;

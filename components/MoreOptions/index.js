@@ -32,16 +32,13 @@ const MoreOptions = ({ onToggle }) => {
   const [filterIcon, setFilterIcon] = useState(false);
 
   const handleCityChange = (e) => {
-    const selectedElement = e.target.value;
-    setSelectedCity(selectedElement);
+    setSelectedCity(e.target.value);
   };
   const handleZoneChange = (e) => {
-    const selectedElement = e.target.value;
-    setSelectedZone(selectedElement);
+    setSelectedZone(e.target.value);
   };
   const handleStructureChange = (e) => {
-    const selectedElement = e.target.value;
-    setSelectedStructure(selectedElement);
+    setSelectedStructure(e.target.value);
   };
   const handlePriceValues = (prices) => {
     setPriceRange(prices);
@@ -53,49 +50,31 @@ const MoreOptions = ({ onToggle }) => {
     setSelectedElevator(!selectedElevator);
   };
   const buildFilterString = async () => {
-    let filterString = "/?";
-
     if (selectedCity !== "DEFAULT") {
-      filterString === "/?"
-        ? (filterString = filterString + `city=${selectedCity}`)
-        : (filterString = filterString + `&city=${selectedCity}`);
+      dispatch(filterActions.filter({ type: "city", payload: selectedCity }));
     }
     if (selectedZone !== "DEFAULT") {
-      filterString === "/?"
-        ? (filterString = filterString + `zone=${selectedZone}`)
-        : (filterString = filterString + `&zone=${selectedZone}`);
+      dispatch(filterActions.filter({ type: "zone", payload: selectedZone }));
     }
     if (selectedStructure !== "DEFAULT") {
-      filterString === "/?"
-        ? (filterString = filterString + `structure=${selectedStructure}`)
-        : (filterString = filterString + `&structure=${selectedStructure}`);
+      dispatch(filterActions.filter({ type: "structure", payload: selectedStructure }));
     }
     if (priceRange[0] !== 2500) {
-      filterString === "/?"
-        ? (filterString = filterString + `minP=${priceRange[0]}`)
-        : (filterString = filterString + `&minP=${priceRange[0]}`);
+      dispatch(filterActions.filter({ type: "minP", payload: priceRange[0] }));
     }
     if (priceRange[1] !== 7500) {
-      filterString === "/?"
-        ? (filterString = filterString + `maxP=${priceRange[1]}`)
-        : (filterString = filterString + `&maxP=${priceRange[1]}`);
+      dispatch(filterActions.filter({ type: "maxP", payload: priceRange[1] }));
     }
     if (floorRange[0] !== 0) {
-      filterString === "/?"
-        ? (filterString = filterString + `minF=${floorRange[0]}`)
-        : (filterString = filterString + `&minF=${floorRange[0]}`);
+      dispatch(filterActions.filter({ type: "minF", payload: floorRange[0] }));
     }
     if (floorRange[1] !== 10) {
-      filterString === "/?"
-        ? (filterString = filterString + `maxF=${floorRange[1]}`)
-        : (filterString = filterString + `&maxF=${floorRange[1]}`);
+      dispatch(filterActions.filter({ type: "maxF", payload: floorRange[1] }));
     }
     if (!!selectedElevator) {
-      filterString === "/?"
-        ? (filterString = filterString + "elevator=" + selectedElevator)
-        : (filterString = filterString + "&elevator=" + selectedElevator);
-      }
-    dispatch(filterActions.filter(filterString))
+      dispatch(filterActions.filter({ type: "elevator", payload: selectedElevator }));
+    }
+    // dispatch(filterActions.filter(filterString));
   };
   const showIcon = () => {
     setFilterIcon(true);
@@ -114,7 +93,7 @@ const MoreOptions = ({ onToggle }) => {
               Zgjidh qytetin
             </option>
             {cities.map((el) => (
-              <option value={el._id}>{el.city}</option>
+              <option value={el._id}>{el.title}</option>
             ))}
           </select>
           <select defaultValue={selectedZone} className="sh2 select" onChange={handleZoneChange}>
@@ -123,7 +102,7 @@ const MoreOptions = ({ onToggle }) => {
             </option>
             {zones.map((el) => {
               if (el.cityId === selectedCity) {
-                return <option value={el._id}>{el.zone}</option>;
+                return <option value={el._id}>{el.title}</option>;
               }
             })}
           </select>
@@ -152,7 +131,7 @@ const MoreOptions = ({ onToggle }) => {
               Zgjidh strukturën
             </option>
             {structures.map((el) => (
-              <option value={el._id}>{el.structure}</option>
+              <option value={el._id}>{el.title}</option>
             ))}
           </select>
         </div>

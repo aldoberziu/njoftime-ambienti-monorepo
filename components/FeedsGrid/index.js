@@ -3,7 +3,7 @@ import Text from "../Text";
 import { useRouter } from "next/router";
 import Slider from "../Slider";
 import FavoriteButton from "../Favorite";
-import { cities, zones, structures } from "../../Constants";
+import { cities, zones } from "../../Constants";
 import Loader from "../Loader";
 
 const FeedsGrid = (props) => {
@@ -31,14 +31,14 @@ const FeedsGrid = (props) => {
                     {feed.location?.zone
                       ? zones.map((zone) => {
                           if (feed.location.zone === zone._id) {
-                            return `${zone.zone}, `;
+                            return `${zone.title}, `;
                           }
                         })
                       : ""}
                     {feed.location?.city
                       ? cities.map((city) => {
                           if (feed.location.city === city._id) {
-                            return `${city.city}`;
+                            return `${city.title}`;
                           }
                         })
                       : " "}

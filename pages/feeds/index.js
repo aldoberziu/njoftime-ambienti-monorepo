@@ -10,9 +10,10 @@ import Banner from "../../components/HomeBanner";
 import axios from "axios";
 import { getApiDomain } from "../../config/appInfo";
 import { useEffect, useState } from "react";
-import { userActions } from "../../store";
+import { filterActions, userActions } from "../../store";
 import { cities, zones } from "../../Constants";
 import Loader from "../../components/Loader";
+import AddFeed from "../../components/AddFeed";
 
 const Feeds = ({ user, feeds: dbFeeds }) => {
   const dispatch = useDispatch();
@@ -27,11 +28,9 @@ const Feeds = ({ user, feeds: dbFeeds }) => {
 
   useEffect(() => {
     dispatch(userActions.user(user));
-    // if (feeds.length === 0) {
     setSliderFeeds(dbFeeds);
     setGridFeeds(dbFeeds);
     setLoading(false);
-    // }
   }, []); //kjo sduhet t jet infinit por s esht
 
   const handleFilter = (state) => {
@@ -42,14 +41,11 @@ const Feeds = ({ user, feeds: dbFeeds }) => {
 
   useEffect(() => {
     if (sCategory !== "") {
-      setLoading(true);
       setFilter(true);
-      axios.get(getApiDomain() + `/feeds?category=${sCategory}`).then((res) => {
-        setSliderFeeds(res.data.data);
-        setLoading(false);
-      });
+      const filteredFeeds = dbFeeds.filter((feed) => feed.category.includes(sCategory));
+      setSliderFeeds(filteredFeeds);
       const slider = document.getElementById("filter-container");
-      slider.scrollIntoView({ behavior: "smooth" });
+      slider?.scrollIntoView({ behavior: "smooth" });
     }
   }, [sCategory]);
 
@@ -58,26 +54,29 @@ const Feeds = ({ user, feeds: dbFeeds }) => {
       setLoading(true);
       try {
         axios
-        .get(getApiDomain() + `/feeds/search/${searchValue}`)
+          .get(getApiDomain() + `/feeds/search/${searchValue}`)
           .then((response) => setGridFeeds(response?.data?.data));
         const grid = document.getElementById("feeds-grid");
-        grid.scrollIntoView({ behavior: "smooth" });
+        grid?.scrollIntoView({ behavior: "smooth" });
       } catch (err) {
         console.log(err);
       }
-    } else if (filterString !== "") {
-      setLoading(true);
-      try {
-        axios
-          .get(getApiDomain() + `/feeds/filter${filterString}`)
-          .then((response) => setGridFeeds(response?.data?.data));
-        const grid = document.getElementById("feeds-grid");
-        grid.scrollIntoView({ behavior: "smooth" });
-      } catch (err) {
-        console.log(err.message);
-      }
+    } else if (filterString !== undefined) {
+      let { city, zone, structure, minP, maxP, minF, maxF, elevator } = filterString || {};
+
+      let filteredFeeds = dbFeeds
+        .filter((el) => city == undefined || city.includes(el.location.city))
+        .filter((el) => zone == undefined || zone.includes(el.location.zone))
+        .filter((el) => structure == undefined || structure.includes(el.structure))
+        .filter((el) => minP == undefined || minP <= el.price)
+        .filter((el) => maxP == undefined || maxP >= el.price)
+        .filter((el) => minF == undefined || minF <= el.floor)
+        .filter((el) => maxF == undefined || maxF >= el.floor)
+        .filter((el) => elevator == undefined || elevator == el.elevator);
+
+      setGridFeeds(filteredFeeds);
+      // dispatch(filterActions.filter({ type: "reset", payload: "" }));
     }
-    setLoading(false);
   }, [searchValue, filterString]);
 
   // get loading state from each child component and using the if statement run this nigga
@@ -89,6 +88,7 @@ const Feeds = ({ user, feeds: dbFeeds }) => {
   }
   return (
     <>
+      <AddFeed />
       <Banner />
       <div style={{ padding: "40px" }}>
         <FilterContainer filter={filter} retrieveFilter={handleFilter} />
