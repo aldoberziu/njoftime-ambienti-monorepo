@@ -6,17 +6,52 @@ import { cities, zones, structures, categories, furnishing } from "../../Constan
 import { useState } from "react";
 import Text from "../Text";
 import UploadImage from "../UploadImage";
+import toJSON from "../../utils/toJSON";
+import { getApiDomain } from "../../config/appInfo";
+import axios from "axios";
 
 const AddFeed = () => {
   const [feedInput, setFeedInput] = useState({
+    category: "",
+    furnishing: "",
+    toilet: "",
+    description: "",
+    capacity: "",
+    location: {
+      country: "",
+      city: "",
+      zone: "",
+      street: "",
+    },
+    area: "",
+    floor: 0,
+    elevator: true,
+    garage: true,
+    structure: "",
+    price: 0,
+    currency: "ALL",
+    rooms: "",
     /*nqs do ti kesh empty fieldsat gjithsesi. define em here*/
   });
-
   const handleFeedInput = (input) => {
     let { field, data } = input;
     setFeedInput((state) => ({ ...state, [field]: data }));
+    if (field === "elevator" || field === "floor") {
+      setFeedInput((state) => ({ ...state, [field]: toJSON(data) }));
+    }
   };
-  console.log(feedInput);
+
+  const handleSubmit = async () => {
+    let filtered = Object.fromEntries(
+      Object.entries(feedInput).filter(([key, value]) => key !== undefined && value !== undefined)
+    );
+    setFeedInput(filtered);
+    console.log(feedInput);
+
+      //cant save in nested fields. fix this next
+
+    // await axios.post(getApiDomain() + "/feeds", { feedInput });
+  };
 
   return (
     <div className={styles.container}>
@@ -70,8 +105,8 @@ const AddFeed = () => {
           name="Ashensor"
           field="elevator"
           options={[
-            { _id: true, title: "Po" },
-            { _id: false, title: "Jo" },
+            { _id: "true", title: "Po" },
+            { _id: "false", title: "Jo" },
           ]}
           selectedValue={handleFeedInput}
         />
@@ -101,7 +136,9 @@ const AddFeed = () => {
           className={styles.lastChild}
         />
       </div>
-      {/* <Button>Publiko</Button> */}
+      <Button className={styles.publishButton} onClick={handleSubmit}>
+        Publiko
+      </Button>
     </div>
   );
 };

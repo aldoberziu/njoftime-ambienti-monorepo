@@ -2,7 +2,7 @@ import styles from "./InputField.module.css";
 import { useState, useEffect } from "react";
 
 const InputField = (props) => {
-  const [selectedValue, setSelectedValue] = useState({ field: "", data: "DEFAULT" });
+  const [selectedValue, setSelectedValue] = useState({/* field: "default", data: "DEFAULT" */});
   const { type, placeholder, value, field, className } = props;
   let classNames = [];
   if (className) classNames.push(`${className} `);

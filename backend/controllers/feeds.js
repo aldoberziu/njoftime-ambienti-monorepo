@@ -6,16 +6,16 @@ const { structures } = require("../constants");
 const Session = require("supertokens-node/recipe/session");
 
 exports.create = async (req, res, next) => {
-  // let session = await Session.getSession(req, res);
-  // let userId = session.getUserId();
-  let userId = "jsdhf";
+  let session = await Session.getSession(req, res);
+  let userId = session.getUserId();
+  // let userId = "jsdhf";
 
   const standardPlan = await Plans.findById("1");
   req.body.createdAt = Date.now().valueOf();
   req.body.expiresAt = req.body.createdAt + standardPlan.duration;
   if (!req.body.company) req.body.company = userId;
 
-  const newFeed = await Feeds.create(req.body);
+  const newFeed = await Feeds.create(req.body.feedInput ? req.body.feedInput : req.body);
   const idString = newFeed._id.toHexString();
 
   await Users.findByIdAndUpdate(
@@ -23,6 +23,7 @@ exports.create = async (req, res, next) => {
     { $push: { myFeeds: idString } },
     { new: true }
   );
+  console.log({newFeed});
 
   res.status(201).json({
     status: "success",
@@ -86,7 +87,7 @@ exports.filterOptions = async (req, res, next) => {
   }
   if (matchStrQuery.$or.length !== 0) {
     filteredFeeds = await Feeds.aggregate([{ $match: matchStrQuery }]);
-  };
+  }
   if (filteredFeeds.length !== 0) {
     for (let i = 0; i < filteredFeeds.length; i++) {
       feeds.push(filteredFeeds[i]);

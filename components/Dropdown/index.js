@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./Dropdown.module.css";
 
 const Dropdown = (props) => {
-  const [selectedValue, setSelectedValue] = useState({ field: "", data: "DEFAULT" });
+  const [selectedValue, setSelectedValue] = useState({/* field: "default", data: "DEFAULT" */});
   const { name, options, field } = props;
 
   const handleValue = (e) => {

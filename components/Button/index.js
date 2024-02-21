@@ -25,7 +25,7 @@ const Button = ({ children, nextLink, className, href, disabled, text, onClick, 
           onClick && onClick();
         }}
       >
-        <Text ui1>
+        <Text sh3>
           {text}
           {children}
         </Text>

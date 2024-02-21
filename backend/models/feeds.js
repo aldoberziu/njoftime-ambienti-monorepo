@@ -6,6 +6,7 @@ const feedSchema = new mongoose.Schema(
     category: { type: String },
     furnishing: { type: String, enum: ["E pamobiluar", "Pjesërisht e mobiluar", "E mobiluar"] },
     toilet: { type: String },
+    description: { type: String },
     capacity: { type: String },
     location: {
       country: { type: String },
