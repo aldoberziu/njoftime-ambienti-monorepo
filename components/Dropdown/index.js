@@ -3,10 +3,10 @@ import styles from "./Dropdown.module.css";
 
 const Dropdown = (props) => {
   const [selectedValue, setSelectedValue] = useState({/* field: "default", data: "DEFAULT" */});
-  const { name, options, field } = props;
+  const { name, options, field, nested } = props;
 
   const handleValue = (e) => {
-    setSelectedValue({ field: field, data: e.target.value });
+    setSelectedValue({ field: field, nested: nested, data: e.target.value });
   };
 
   useEffect(() => {

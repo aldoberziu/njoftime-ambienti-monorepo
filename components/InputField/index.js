@@ -3,12 +3,12 @@ import { useState, useEffect } from "react";
 
 const InputField = (props) => {
   const [selectedValue, setSelectedValue] = useState({/* field: "default", data: "DEFAULT" */});
-  const { type, placeholder, value, field, className } = props;
+  const { type, placeholder, value, field, className, nested } = props;
   let classNames = [];
   if (className) classNames.push(`${className} `);
 
   const handleValue = (e) => {
-    setSelectedValue({ field: field, data: e.target.value });
+    setSelectedValue({ field: field, nested: nested, data: e.target.value });
   };
 
   useEffect(() => {

@@ -12,12 +12,12 @@ const FeedsSlider = (props) => {
 
   let feedsData = feeds.map((feed) => ({
     ...feed,
-    category: categories.find(({ _id }) => _id === feed.category).title,
-    structure: structures.find(({ _id }) => _id === feed.structure).title,
+    category: categories.find(({ _id }) => _id === feed.category)?.title,
+    structure: structures.find(({ _id }) => _id === feed.structure)?.title,
     location: {
-      city: cities.find(({ _id }) => _id === feed.location.city).title,
-      zone: zones.find(({ _id }) => _id === feed.location.zone).title,
-      country: countries.find(({ _id }) => _id === feed.location.country).title,
+      city: cities.find(({ _id }) => _id === feed.location.city)?.title,
+      zone: zones.find(({ _id }) => _id === feed.location.zone)?.title,
+      country: countries.find(({ _id }) => _id === feed.location.country)?.title,
     },
   }));
 

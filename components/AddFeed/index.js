@@ -34,8 +34,12 @@ const AddFeed = () => {
     /*nqs do ti kesh empty fieldsat gjithsesi. define em here*/
   });
   const handleFeedInput = (input) => {
-    let { field, data } = input;
-    setFeedInput((state) => ({ ...state, [field]: data }));
+    let { field, data, nested } = input;
+    if (!!nested) {
+      setFeedInput((state) => ({ ...state, [field]: { ...state.location, [nested]: data } }));
+    } else {
+      setFeedInput((state) => ({ ...state, [field]: data }));
+    }
     if (field === "elevator" || field === "floor") {
       setFeedInput((state) => ({ ...state, [field]: toJSON(data) }));
     }
@@ -48,9 +52,7 @@ const AddFeed = () => {
     setFeedInput(filtered);
     console.log(feedInput);
 
-      //cant save in nested fields. fix this next
-
-    // await axios.post(getApiDomain() + "/feeds", { feedInput });
+    await axios.post(getApiDomain() + "/feeds", { feedInput });
   };
 
   return (
@@ -121,16 +123,24 @@ const AddFeed = () => {
         </div>
       </div>
       <div className={`${styles.tile} ${styles.pattern1}`}>
-        <Dropdown name="Qyteti" field="city" options={cities} selectedValue={handleFeedInput} />
+        <Dropdown
+          name="Qyteti"
+          field="location"
+          nested="city"
+          options={cities}
+          selectedValue={handleFeedInput}
+        />
         <Dropdown
           name="Zona"
-          field="zone"
-          options={zones.filter(({ cityId }) => cityId === feedInput.city)}
+          field="location"
+          nested="zone"
+          options={zones.filter(({ cityId }) => cityId === feedInput?.location?.city)}
           selectedValue={handleFeedInput}
         />
         <Input
           type="text"
-          field="street"
+          field="location"
+          nested="street"
           placeholder="Shkruaj sakte emrin e rruges..."
           selectedValue={handleFeedInput}
           className={styles.lastChild}

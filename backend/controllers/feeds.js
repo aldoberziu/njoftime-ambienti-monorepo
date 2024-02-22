@@ -6,9 +6,9 @@ const { structures } = require("../constants");
 const Session = require("supertokens-node/recipe/session");
 
 exports.create = async (req, res, next) => {
-  let session = await Session.getSession(req, res);
-  let userId = session.getUserId();
-  // let userId = "jsdhf";
+  // let session = await Session.getSession(req, res);
+  // let userId = session.getUserId();
+  let userId = "jsdhf";
 
   const standardPlan = await Plans.findById("1");
   req.body.createdAt = Date.now().valueOf();
