@@ -4,31 +4,67 @@ const Users = require("../models/users");
 const ApiFeatures = require("../utils/apiFeatures");
 const { structures } = require("../constants");
 const Session = require("supertokens-node/recipe/session");
+const upload = require("../utils/cloudinary");
 
 exports.create = async (req, res, next) => {
   // let session = await Session.getSession(req, res);
   // let userId = session.getUserId();
   let userId = "jsdhf";
+  let idString = "";
 
   const standardPlan = await Plans.findById("1");
   req.body.createdAt = Date.now().valueOf();
   req.body.expiresAt = req.body.createdAt + standardPlan.duration;
   if (!req.body.company) req.body.company = userId;
 
-  const newFeed = await Feeds.create(req.body.feedInput ? req.body.feedInput : req.body);
-  const idString = newFeed._id.toHexString();
+  if (req.body.feedInput) {
+    const image = req.body.feedInput?.image;
+
+    if (image) {
+      const file = upload(image);
+
+      file
+        .then(async (data) => {
+          // req.body.feedInput.image = { fileName: image.fileName, file: data };
+          req.body.feedInput.image = data;
+
+          const newFeed = await Feeds.create(req.body.feedInput);
+
+          res.status(201).json({
+            status: "success",
+            data: newFeed,
+          });
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    } else {
+      req.body.feedInput.image = req.body.feedInput.image || null;
+
+      const newFeed = await Feeds.create(req.body.feedInput);
+
+      res.status(201).json({
+        status: "success",
+        data: newFeed,
+      });
+    }
+  } else {
+    const newFeed = await Feeds.create(req.body);
+
+    res.status(201).json({
+      status: "success",
+      data: newFeed,
+    });
+  }
+
+  // duhet rregullu kjo
+  // const idString = res.data._id.toHexString();
 
   await Users.findByIdAndUpdate(
     req.body.company ? req.body.company : userId,
     { $push: { myFeeds: idString } },
     { new: true }
   );
-  console.log({newFeed});
-
-  res.status(201).json({
-    status: "success",
-    data: newFeed,
-  });
   next();
 };
 exports.one = async (req, res, next) => {

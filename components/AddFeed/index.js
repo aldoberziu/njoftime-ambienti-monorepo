@@ -23,6 +23,7 @@ const AddFeed = () => {
       zone: "",
       street: "",
     },
+    image: "",
     area: "",
     floor: 0,
     elevator: true,
@@ -33,6 +34,8 @@ const AddFeed = () => {
     rooms: "",
     /*nqs do ti kesh empty fieldsat gjithsesi. define em here*/
   });
+
+  //duhet bo array images jo single string
   const handleFeedInput = (input) => {
     let { field, data, nested } = input;
     if (!!nested) {
@@ -50,7 +53,6 @@ const AddFeed = () => {
       Object.entries(feedInput).filter(([key, value]) => key !== undefined && value !== undefined)
     );
     setFeedInput(filtered);
-    console.log(feedInput);
 
     await axios.post(getApiDomain() + "/feeds", { feedInput });
   };
@@ -116,10 +118,10 @@ const AddFeed = () => {
       <div className={styles.uploadSection}>
         <Text sh3>Vendosni Foto te ambientit*</Text>
         <div className={styles.uploaders}>
-          <UploadImage />
-          <UploadImage />
-          <UploadImage />
-          <UploadImage />
+          <UploadImage selectedValue={handleFeedInput} field="image"/>
+          <UploadImage selectedValue={handleFeedInput} field="image"/>
+          <UploadImage selectedValue={handleFeedInput} field="image"/>
+          <UploadImage selectedValue={handleFeedInput} field="image"/>
         </div>
       </div>
       <div className={`${styles.tile} ${styles.pattern1}`}>

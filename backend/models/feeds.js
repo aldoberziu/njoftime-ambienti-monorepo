@@ -22,6 +22,7 @@ const feedSchema = new mongoose.Schema(
     price: { type: Number },
     currency: { type: String/*, enum: ["USD", "EUR", "LEK"]*/ },
     rooms: { type: String },
+    image: { type: String },
     // discountedPrice: { type: Number },    ????
     //extra auto generated data ↓
     createdAt: { type: Number },

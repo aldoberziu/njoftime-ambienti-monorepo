@@ -6,3 +6,7 @@
   padding: 6px 7px;
   outline: none;
 }
+.inputField::placeholder{
+  color: #929090;
+
+}
