@@ -9,8 +9,11 @@ import UploadImage from "../UploadImage";
 import toJSON from "../../utils/toJSON";
 import { getApiDomain } from "../../config/appInfo";
 import axios from "axios";
+import { useSessionContext } from "supertokens-auth-react/recipe/session";
 
 const AddFeed = () => {
+  const userId = useSessionContext().userId;
+
   const [feedInput, setFeedInput] = useState({
     category: "",
     furnishing: "",
@@ -23,7 +26,7 @@ const AddFeed = () => {
       zone: "",
       street: "",
     },
-    image: "",
+    images: [],
     area: "",
     floor: 0,
     elevator: true,
@@ -35,11 +38,13 @@ const AddFeed = () => {
     /*nqs do ti kesh empty fieldsat gjithsesi. define em here*/
   });
 
-  //duhet bo array images jo single string
   const handleFeedInput = (input) => {
     let { field, data, nested } = input;
     if (!!nested) {
       setFeedInput((state) => ({ ...state, [field]: { ...state.location, [nested]: data } }));
+    } else if (field === "images") {
+      setFeedInput((state) => ({ ...state, images: [...state.images, data] }));
+      console.log(feedInput);
     } else {
       setFeedInput((state) => ({ ...state, [field]: data }));
     }
@@ -54,7 +59,7 @@ const AddFeed = () => {
     );
     setFeedInput(filtered);
 
-    await axios.post(getApiDomain() + "/feeds", { feedInput });
+    await axios.post(getApiDomain() + "/feeds", { feedInput, userId });
   };
 
   return (
@@ -118,10 +123,10 @@ const AddFeed = () => {
       <div className={styles.uploadSection}>
         <Text sh3>Vendosni Foto te ambientit*</Text>
         <div className={styles.uploaders}>
-          <UploadImage selectedValue={handleFeedInput} field="image"/>
-          <UploadImage selectedValue={handleFeedInput} field="image"/>
-          <UploadImage selectedValue={handleFeedInput} field="image"/>
-          <UploadImage selectedValue={handleFeedInput} field="image"/>
+          <UploadImage selectedValue={handleFeedInput} field="images" index={0} />
+          <UploadImage selectedValue={handleFeedInput} field="images" index={1} />
+          <UploadImage selectedValue={handleFeedInput} field="images" index={2} />
+          <UploadImage selectedValue={handleFeedInput} field="images" index={3} />
         </div>
       </div>
       <div className={`${styles.tile} ${styles.pattern1}`}>

@@ -10,10 +10,8 @@ import Banner from "../../components/HomeBanner";
 import axios from "axios";
 import { getApiDomain } from "../../config/appInfo";
 import { useEffect, useState } from "react";
-import { filterActions, userActions } from "../../store";
-import { cities, zones } from "../../Constants";
+import { userActions } from "../../store";
 import Loader from "../../components/Loader";
-import AddFeed from "../../components/AddFeed";
 
 const Feeds = ({ user, feeds: dbFeeds }) => {
   const dispatch = useDispatch();
@@ -56,6 +54,7 @@ const Feeds = ({ user, feeds: dbFeeds }) => {
         axios
           .get(getApiDomain() + `/feeds/search/${searchValue}`)
           .then((response) => setGridFeeds(response?.data?.data));
+        setLoading(false);
         const grid = document.getElementById("feeds-grid");
         grid?.scrollIntoView({ behavior: "smooth" });
       } catch (err) {
@@ -85,25 +84,25 @@ const Feeds = ({ user, feeds: dbFeeds }) => {
 
   if (loading) {
     return <Loader />;
+  } else {
+    return (
+      <>
+        <Banner />
+        <div style={{ padding: "40px" }}>
+          <FilterContainer filter={filter} retrieveFilter={handleFilter} />
+          <FeedsSlider
+            feeds={sCategory === "" ? dbFeeds : sliderFeeds}
+            loading={loading}
+            filter={filter}
+          />
+          <FeedsGrid
+            feeds={searchValue === "" && filterString === "" ? dbFeeds : gridFeeds}
+            loading={loading}
+          />
+        </div>
+      </>
+    );
   }
-  return (
-    <>
-      <AddFeed />
-      <Banner />
-      <div style={{ padding: "40px" }}>
-        <FilterContainer filter={filter} retrieveFilter={handleFilter} />
-        <FeedsSlider
-          feeds={sCategory === "" ? dbFeeds : sliderFeeds}
-          loading={loading}
-          filter={filter}
-        />
-        <FeedsGrid
-          feeds={searchValue === "" && filterString === "" ? dbFeeds : gridFeeds}
-          loading={loading}
-        />
-      </div>
-    </>
-  );
 };
 
 export async function getServerSideProps(context) {

@@ -20,9 +20,9 @@ const feedSchema = new mongoose.Schema(
     garage: { type: Boolean },
     structure: { type: String },
     price: { type: Number },
-    currency: { type: String/*, enum: ["USD", "EUR", "LEK"]*/ },
+    currency: { type: String /*, enum: ["USD", "EUR", "LEK"]*/ },
     rooms: { type: String },
-    image: { type: String },
+    images: [{ type: String }],
     // discountedPrice: { type: Number },    ????
     //extra auto generated data ↓
     createdAt: { type: Number },

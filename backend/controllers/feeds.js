@@ -7,70 +7,68 @@ const Session = require("supertokens-node/recipe/session");
 const upload = require("../utils/cloudinary");
 
 exports.create = async (req, res, next) => {
-  // let session = await Session.getSession(req, res);
-  // let userId = session.getUserId();
-  let userId = "jsdhf";
-  let idString = "";
-
+  const userId = req.body.userId;
   const standardPlan = await Plans.findById("1");
-  req.body.createdAt = Date.now().valueOf();
-  req.body.expiresAt = req.body.createdAt + standardPlan.duration;
   if (!req.body.company) req.body.company = userId;
 
   if (req.body.feedInput) {
-    const image = req.body.feedInput?.image;
+    req.body.feedInput.createdAt = Date.now().valueOf();
+    req.body.feedInput.expiresAt = req.body?.feedInput.createdAt + standardPlan.duration;
 
-    if (image) {
-      const file = upload(image);
-
-      file
+    const images = req.body.feedInput?.images;
+    if (images.length > 0) {
+      const imagesPromises = upload(images);
+      imagesPromises
         .then(async (data) => {
-          // req.body.feedInput.image = { fileName: image.fileName, file: data };
-          req.body.feedInput.image = data;
-
+          req.body.feedInput.images = data;
           const newFeed = await Feeds.create(req.body.feedInput);
-
+          const idString = newFeed._id.toHexString();
+          await Users.findByIdAndUpdate(
+            req.body.company ? req.body.company : userId,
+            { $push: { myFeeds: idString } },
+            { new: true }
+          );
           res.status(201).json({
             status: "success",
             data: newFeed,
           });
+          next();
         })
-        .catch((err) => {
-          console.log(err.message);
-        });
+        .catch((err) => console.log(err.message));
     } else {
-      req.body.feedInput.image = req.body.feedInput.image || null;
-
+      req.body.feedInput.images = req.body.feedInput.images || [];
       const newFeed = await Feeds.create(req.body.feedInput);
-
+      const idString = newFeed._id.toHexString();
+      await Users.findByIdAndUpdate(
+        req.body.company ? req.body.company : userId,
+        { $push: { myFeeds: idString } },
+        { new: true }
+      );
       res.status(201).json({
         status: "success",
         data: newFeed,
       });
+      next();
     }
   } else {
+    req.body.createdAt = Date.now().valueOf();
+    req.body.expiresAt = req.body.createdAt + standardPlan.duration;
     const newFeed = await Feeds.create(req.body);
-
+    const idString = newFeed._id.toHexString();
+    await Users.findByIdAndUpdate(
+      req.body.company ? req.body.company : userId,
+      { $push: { myFeeds: idString } },
+      { new: true }
+    );
     res.status(201).json({
       status: "success",
       data: newFeed,
     });
+    next();
   }
-
-  // duhet rregullu kjo
-  // const idString = res.data._id.toHexString();
-
-  await Users.findByIdAndUpdate(
-    req.body.company ? req.body.company : userId,
-    { $push: { myFeeds: idString } },
-    { new: true }
-  );
-  next();
 };
 exports.one = async (req, res, next) => {
   let feed = await Feeds.findById(req.params.id);
-
-  // feed.populate({ path: 'company'});
 
   if (!feed) {
     res.status(404).json({
@@ -182,9 +180,9 @@ exports.search = async (req, res, next) => {
   next();
 };
 exports.all = async (req, res, next) => {
-  const filters = new ApiFeatures(Feeds.find(), req.query).filter();
+  const filters = new ApiFeatures(Feeds.find().sort({ createdAt: "asc" }), req.query).filter();
 
-  const feeds = await filters.query;
+  let feeds = await filters.query;
 
   res.status(200).json({
     status: "success",

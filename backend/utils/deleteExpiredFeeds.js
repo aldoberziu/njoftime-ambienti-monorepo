@@ -11,7 +11,7 @@ const deleteExpiredFeeds = async (req, res, next) => {
       await Feed.findByIdAndDelete(allFeeds[i]._id);
     }
   }
-  return next();
+  next();
 };
 
 setInterval(deleteExpiredFeeds, 1000 * 60 * 60)

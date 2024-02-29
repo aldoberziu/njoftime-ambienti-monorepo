@@ -20,49 +20,50 @@ export async function getServerSideProps(context) {
   };
 }
 
-const SinglePlan = (props) => {
-  let { plan, index, activePlan } = props;
-
+const SinglePlan = ({ plan, activePlan, id }) => {
   const [loading, setLoading] = useState(false);
 
   const updatePlan = async (planId) => {
     setLoading(true);
     Router.reload();
-    let feedId = props.feedId;
-    await axios.patch(getApiDomain() + `/feeds/${feedId}/plans`, {
+    await axios.patch(getApiDomain() + `/feeds/${id}`, {
       activePlan: planId,
     });
-    setLoading(false);
   };
 
   if (loading) {
     return <Loader />;
   } else {
     return (
-      <div className={styles.planCardContainer} index={index + 1} key={index}>
-        <Text h2 className={styles.title}>
-          {plan.title}
-        </Text>
-        <Text sh1 className={styles.price}>
-          {plan.price}
-        </Text>
-        {index + 1 === parseInt(activePlan) ? (
-          <Button disabled className={styles.postoNjoftimin}>
-            Plani Aktual
-          </Button>
-        ) : (
-          <Button className={styles.postoNjoftimin} onClick={() => updatePlan(plan._id)}>
-            Posto Njoftimin
-          </Button>
-        )}
-        {plan.items.map((el) => (
-          <div className={styles.items}>
-            <Image src={Checked} />
-            <Text className={styles.ui2} ui2>
-              {el}
-            </Text>
-          </div>
-        ))}
+      <div className={styles.wrapper}>
+        <div className={`${styles.recommended} ${plan._id !== "3" ? styles.hide : ""}`}>
+          <Text sh2>Rekomandohet</Text>
+        </div>
+        <div className={styles.planCardContainer} key={plan._id}>
+          <Text h2 className={styles.title}>
+            {plan.title}
+          </Text>
+          <Text sh1 className={styles.price}>
+            {plan.price}
+          </Text>
+          {plan._id === activePlan ? (
+            <Button disabled className={styles.postoNjoftimin}>
+              Plani Aktual
+            </Button>
+          ) : (
+            <Button className={styles.postoNjoftimin} onClick={() => updatePlan(plan._id)}>
+              Posto Njoftimin
+            </Button>
+          )}
+          {plan.items.map((el) => (
+            <div className={styles.items}>
+              <Image src={Checked} />
+              <Text className={styles.ui2} ui2>
+                {el}
+              </Text>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }

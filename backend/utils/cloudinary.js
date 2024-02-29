@@ -14,7 +14,7 @@ const options = {
   // unique_filename: false,
 };
 
-module.exports = (image) => {
+const upload = (image) => {
   return new Promise((resolve, reject) => {
     cloudinary.uploader.upload(image, options, (err, result) => {
       if (result && result.secure_url) {
@@ -25,3 +25,7 @@ module.exports = (image) => {
     });
   });
 };
+module.exports = (images) => {
+  return Promise.all(images.map(upload))
+};
+

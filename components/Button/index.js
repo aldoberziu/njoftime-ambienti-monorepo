@@ -25,10 +25,10 @@ const Button = ({ children, nextLink, className, href, disabled, text, onClick, 
           onClick && onClick();
         }}
       >
-        <Text sh3>
+        <p>
           {text}
           {children}
-        </Text>
+        </p>
       </div>
     );
   }

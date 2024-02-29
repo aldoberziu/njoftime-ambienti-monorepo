@@ -13,6 +13,7 @@ const FavoriteButton = ({ feedId }) => {
   const dispatch = useDispatch();
   let sUser = useSelector((state) => state.user.loggedUser);
   const userId = sUser?._id;
+  console.log({sUser})
 
   const addToFavorites = async (e) => {
     e.stopPropagation();

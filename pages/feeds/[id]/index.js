@@ -56,6 +56,9 @@ const DetailedFeed = ({ id }) => {
           <Text sh2>Elevator: {feed.elevator ? "Yes" : "No"}</Text>
           <Text sh2>Structure: {feed.structure}</Text>
           <Text sh2>Price: {feed.price}L</Text>
+          {feed.images.map((image) => (
+            <a href={image}>{image}<br></br></a>
+          ))}
           <Text sh2>CreatedAt: {new Date(feed.createdAt).toString()}</Text>
           <Text sh2>ModifiedAt: {new Date(feed.modifiedAt).toString()}</Text>
           <Text sh2>ExpiresAt: {new Date(feed.expiresAt).toString()}</Text>
