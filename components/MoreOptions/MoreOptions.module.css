@@ -95,11 +95,11 @@ body.active-modal {
 .filterButton img {
   padding-left: 5px;
 }
-.filterButton:hover .showFilterIcon{
+.filterButton:hover .showFilterIcon {
   position: relative;
   opacity: 1;
 }
-.hideFilterIcon{
+.hideFilterIcon {
   position: absolute;
   opacity: 0;
 }

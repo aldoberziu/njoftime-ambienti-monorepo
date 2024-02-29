@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
 
-.sliderWrapper::before, .sliderWrapper::after{
+.sliderWrapper::before,
+.sliderWrapper::after {
   content: "";
   position: absolute;
   z-index: 1;

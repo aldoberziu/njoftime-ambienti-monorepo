@@ -1,11 +1,11 @@
-.bannerContainer{
-    width: 100%;
-    height: 80vh;
-    position: relative;
+.bannerContainer {
+  width: 100%;
+  height: 80vh;
+  position: relative;
 }
-.bannerContainer .bannerImage{
-    width: inherit;
-    height: inherit;
-    object-fit: cover;
-    filter: brightness(65%);
+.bannerContainer .bannerImage {
+  width: inherit;
+  height: inherit;
+  object-fit: cover;
+  filter: brightness(65%);
 }
