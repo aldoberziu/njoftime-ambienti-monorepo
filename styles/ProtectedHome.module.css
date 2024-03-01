@@ -90,7 +90,7 @@
   border-radius: 9px;
   padding: 2px;
   background: linear-gradient(90.31deg, #ff9933 0.11%, #ff3f33 99.82%);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  /* -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); */
   -webkit-mask-composite: xor;
   mask-composite: exclude;
 }
