@@ -24,7 +24,7 @@ export default function Auth(): JSX.Element {
             <Head>
                 <title>SuperTokens 💫</title>
                 <link
-                    href={`https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap`}
+                    href={`//fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap`}
                     rel="stylesheet"
                     type="text/css"
                 />
