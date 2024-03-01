@@ -62,7 +62,7 @@ function ProtectedPage() {
     <div className={styles.homeContainer}>
       <Head>
         <title>SuperTokens 💫</title>
-        <link rel="icon" href={"/favicon.ico"} />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.mainContainer}>
       <SaveUser />
@@ -89,7 +89,7 @@ function ProtectedPage() {
         ))}
       </div>
       <Image className={styles.separatorLine} src={SeparatorLine} alt="separator" />
-      <Link href={"/feeds"}>Feeds</Link>
+      <Link href="/feeds">Feeds</Link>
     </div>
   );
 }
