@@ -1,33 +1,44 @@
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans&display=swap");
 
-.wrapper {
-  position: relative;
+.section{
+  margin: 50px 50px;
 }
 .header {
   padding: 40px 0 60px 0;
-  width: 70%;
+  width: 60%;
   text-align: center;
   margin: auto;
+  font-family: "Work Sans", sans-serif;
 }
 .plansContainer {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-auto-rows: 1fr;
-  gap: 50px;
-  margin: auto 105px;
   position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 25px;
+}
+.wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
 }
 .planCardContainer {
+  flex: 1 1 auto;
   font-family: "Work Sans", sans-serif;
   color: #000000;
-  padding: 80px 23px 20px 23px;
+  padding: 70px 23px 20px 23px;
+  height: 100%;
+  gap: 25px;
   box-shadow: 0px 6px 6px 0px rgba(0, 0, 0, 0.25), 0px 6px 6px 0px rgba(0, 0, 0, 0.25);
 }
 .planCardContainer .title {
   display: flex;
   justify-content: center;
   margin: 0px;
-  text-align: justify;
+  text-align: center;
+  line-height: 30px;
 }
 .planCardContainer .price {
   display: flex;
@@ -58,7 +69,19 @@
   color: white;
   border-radius: 20px 20px 0px 0px;
   padding: 5px;
+  /* width: 100%; */
 }
 .hide {
   visibility: hidden;
+}
+@media only screen and (min-width: 1370px) {
+  .section{
+    margin: 30px 100px;
+  }
+  .planCardContainer{
+    max-width: 300px;
+  }
+  .recommended{
+    max-width: 300px;
+  }
 }

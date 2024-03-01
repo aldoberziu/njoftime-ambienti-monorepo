@@ -8,7 +8,7 @@ import { getApiDomain } from "../../config/appInfo";
 import axios from "axios";
 import Router from "next/router";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export async function getServerSideProps(context) {
   const { params } = context;
@@ -30,6 +30,11 @@ const SinglePlan = ({ plan, activePlan, id }) => {
       activePlan: planId,
     });
   };
+  useEffect(() => {
+    if (plan) {
+      setLoading(false);
+    }
+  }, [plan]);
 
   if (loading) {
     return <Loader />;
@@ -40,10 +45,10 @@ const SinglePlan = ({ plan, activePlan, id }) => {
           <Text sh2>Rekomandohet</Text>
         </div>
         <div className={styles.planCardContainer} key={plan._id}>
-          <Text h2 className={styles.title}>
+          <Text sh1 bold className={styles.title}>
             {plan.title}
           </Text>
-          <Text sh1 className={styles.price}>
+          <Text sh2 className={styles.price}>
             {plan.price}
           </Text>
           {plan._id === activePlan ? (

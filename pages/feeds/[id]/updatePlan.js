@@ -27,8 +27,8 @@ const Plans = ({ plans, feed: activePlan, id }) => {
     return <Loader />;
   } else {
     return (
-      <div>
-        <Text h3 className={styles.header}>ZGJIDHNI SHËRBIMET TONA TË MARKETINGUT RRETH NJOFTIMEVE TË PUNËS</Text>
+      <div className={styles.section}>
+        <Text sh1 bold className={styles.header}>ZGJIDHNI SHËRBIMET TONA TË MARKETINGUT RRETH NJOFTIMEVE TË PUNËS</Text>
         <div className={styles.plansContainer}>
           {plans.map((plan) => (
             <SinglePlan plan={plan} activePlan={activePlan} id={id} />
