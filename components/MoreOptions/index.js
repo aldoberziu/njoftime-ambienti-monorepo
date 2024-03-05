@@ -1,19 +1,19 @@
-import { useState } from "react";
-import PriceRange from "../PriceRange";
-import FloorRange from "../FloorRange";
+import Dropdown from "../Dropdown";
+import InputField from "../InputField";
 import styles from "./MoreOptions.module.css";
-import { cities, zones, structures } from "../../Constants";
+import { cities, structures, zones } from "../../Constants";
+import { FilterIcon } from "../../icons";
 import Button from "../Button";
 import Text from "../Text";
 import Image from "next/image";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { FilterIcon } from "../../icons";
 import { filterActions } from "../../store";
 
 const MoreOptions = ({ onToggle }) => {
   const dispatch = useDispatch();
-
   const [modal, setModal] = useState(false);
+  const [filterString, setFilterString] = useState({});
 
   const toggleModal = () => {
     setModal(!modal);
@@ -23,142 +23,106 @@ const MoreOptions = ({ onToggle }) => {
       grid.scrollIntoView({ behavior: "smooth" });
     }, 500);
   };
-  const [selectedCity, setSelectedCity] = useState("DEFAULT");
-  const [selectedZone, setSelectedZone] = useState("DEFAULT");
-  const [selectedStructure, setSelectedStructure] = useState("DEFAULT");
-  const [priceRange, setPriceRange] = useState([]);
-  const [floorRange, setFloorRange] = useState([]);
-  const [selectedElevator, setSelectedElevator] = useState(false);
-  const [filterIcon, setFilterIcon] = useState(false);
 
-  const handleCityChange = (e) => {
-    setSelectedCity(e.target.value);
+  const handleSelector = (input) => {
+    let { field, data } = input;
+    setFilterString((state) => ({ ...state, [field]: data }));
   };
-  const handleZoneChange = (e) => {
-    setSelectedZone(e.target.value);
+  const handleFilter = async () => {
+    const filtered = Object.fromEntries(
+      Object.entries(filterString).filter(
+        ([key, value]) => key !== undefined && value !== undefined
+      )
+    );
+    dispatch(filterActions.filter(filtered));
   };
-  const handleStructureChange = (e) => {
-    setSelectedStructure(e.target.value);
-  };
-  const handlePriceValues = (prices) => {
-    setPriceRange(prices);
-  };
-  const handleFloorValues = (floors) => {
-    setFloorRange(floors);
-  };
-  const handleElevator = () => {
-    setSelectedElevator(!selectedElevator);
-  };
-  const buildFilterString = async () => {
-    if (selectedCity !== "DEFAULT") {
-      dispatch(filterActions.filter({ type: "city", payload: selectedCity }));
-    }
-    if (selectedZone !== "DEFAULT") {
-      dispatch(filterActions.filter({ type: "zone", payload: selectedZone }));
-    }
-    if (selectedStructure !== "DEFAULT") {
-      dispatch(filterActions.filter({ type: "structure", payload: selectedStructure }));
-    }
-    if (priceRange[0] !== 2500) {
-      dispatch(filterActions.filter({ type: "minP", payload: priceRange[0] }));
-    }
-    if (priceRange[1] !== 7500) {
-      dispatch(filterActions.filter({ type: "maxP", payload: priceRange[1] }));
-    }
-    if (floorRange[0] !== 0) {
-      dispatch(filterActions.filter({ type: "minF", payload: floorRange[0] }));
-    }
-    if (floorRange[1] !== 10) {
-      dispatch(filterActions.filter({ type: "maxF", payload: floorRange[1] }));
-    }
-    if (!!selectedElevator) {
-      dispatch(filterActions.filter({ type: "elevator", payload: selectedElevator }));
-    }
-    // dispatch(filterActions.filter(filterString));
-  };
-  const showIcon = () => {
-    setFilterIcon(true);
-  };
-  const hideIcon = () => {
-    setFilterIcon(false);
-  };
-
   return (
     <div className={styles.modal}>
-      <div onClick={toggleModal} className={styles.overlay}></div>
+      <div className={styles.overlay} onClick={toggleModal}></div>
       <div className={styles.modalContent}>
-        <div className={styles.dropdownSelectors}>
-          <select defaultValue={selectedCity} className="sh2 select" onChange={handleCityChange}>
-            <option disabled value="DEFAULT">
-              Zgjidh qytetin
-            </option>
-            {cities.map((el) => (
-              <option value={el._id}>{el.title}</option>
-            ))}
-          </select>
-          <select defaultValue={selectedZone} className="sh2 select" onChange={handleZoneChange}>
-            <option disabled value="DEFAULT">
-              Zgjidh zonen
-            </option>
-            {zones.map((el) => {
-              if (el.cityId === selectedCity) {
-                return <option value={el._id}>{el.title}</option>;
-              }
-            })}
-          </select>
-        </div>
-        <div className={styles.rangeSliders}>
-          <PriceRange sendTheValues={handlePriceValues} />
-          <FloorRange sendTheValues={handleFloorValues} />
-        </div>
-        <div className="elevator">
-          <label htmlFor="elevator">Ashensor: </label>
-          <input
-            type="checkbox"
-            id="elevator"
-            name="elevator"
-            defaultValue={selectedElevator}
-            onChange={handleElevator}
+        <div className={`${styles.locationSelectors} ${styles.tile}`}>
+          <Dropdown
+            name="Zgjidh qytetin"
+            field="city"
+            options={cities}
+            selectedValue={handleSelector}
+          />
+          <Dropdown
+            name="Zgjidh qytetin"
+            field="zone"
+            options={zones}
+            selectedValue={handleSelector}
           />
         </div>
-        <div className={styles.dropdownSelectors}>
-          <select
-            defaultValue={selectedStructure}
-            className="sh2 select"
-            onChange={handleStructureChange}
-          >
-            <option disabled value="DEFAULT">
-              Zgjidh strukturën
-            </option>
-            {structures.map((el) => (
-              <option value={el._id}>{el.title}</option>
-            ))}
-          </select>
+        <div className={`${styles.gridSelectors} ${styles.tile}`}>
+          <InputField
+            type="number"
+            field="minF"
+            placeholder="Kati min"
+            selectedValue={handleSelector}
+          />
+          <InputField
+            type="number"
+            field="maxF"
+            placeholder="Kati max"
+            selectedValue={handleSelector}
+          />
+          <Dropdown
+            name="Zgjidh qytetin"
+            field="city"
+            options={structures}
+            selectedValue={handleSelector}
+          />
+          <InputField
+            type="number"
+            field="minP"
+            placeholder="Cmimi minimal"
+            selectedValue={handleSelector}
+          />
+          <InputField
+            type="number"
+            field="maxP"
+            placeholder="Cmimi maksimal"
+            selectedValue={handleSelector}
+          />
+          <InputField
+            type="number"
+            field="rooms"
+            placeholder="Dhoma"
+            selectedValue={handleSelector} /*to be decided later*/
+          />
         </div>
-        <div className={styles.filterContainer}>
-          <Button
-            onClick={() => {
-              buildFilterString();
-              toggleModal();
-            }}
-            onMouseEnter={showIcon}
-            onMouseLeave={hideIcon}
-            className={styles.filterButton}
-          >
-            <Text sh2 className={styles.sh2}>
-              Filter{" "}
-              <Image
-                src={FilterIcon}
-                alt=""
-                className={`${filterIcon ? styles.showFilterIcon : styles.hideFilterIcon}`}
-              />
-            </Text>
-          </Button>
+        <div className={`${styles.bottomSelectors} ${styles.tile}`}>
+          <Dropdown
+            name="Ashensor"
+            field="elevator"
+            options={[
+              { _id: "true", title: "Po" },
+              { _id: "false", title: "Jo" },
+            ]}
+            selectedValue={handleSelector}
+          />
+          <InputField
+            type="number"
+            field="celNumber"
+            placeholder="nr tel" /*to be decided later*/
+          />
         </div>
-        <button className={styles.closeModal} onClick={toggleModal}>
-          CLOSE
-        </button>
+        <Button
+          onClick={() => {
+            handleFilter();
+            toggleModal();
+          }}
+          className={styles.filterButton}
+        >
+          <Text sh2 className={styles.sh2}>
+            Filter <Image src={FilterIcon} alt="" />
+          </Text>
+        </Button>
       </div>
+      <button className={styles.closeModal} onClick={toggleModal}>
+        CLOSE
+      </button>
     </div>
   );
 };

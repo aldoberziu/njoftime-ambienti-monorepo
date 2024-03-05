@@ -2,7 +2,7 @@
 
 .displayBlock2x {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: repeat(2, 1fr);
   grid-gap: 20px 26px;
   margin: 40px 0;
 }

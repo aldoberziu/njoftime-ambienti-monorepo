@@ -27,59 +27,59 @@ const searchSlice = createSlice({
 //     },
 //   },
 // });
-const initialFilter = {
-  city: "",
-  zone: "",
-  structure: "",
-  minP: 0,
-  maxP: 0,
-  minF: 0,
-  maxF: 0,
-  elevator: null,
-};
+const initialFilter = {};
+// const filterSlice = createSlice({
+//   name: "filterString",
+//   initialState: initialFilter,
+//   reducers: {
+//     filter(state, action) {
+//       switch (action.payload.type) {
+//         case "city": {
+//           state.filterString = { ...state.filterString, city: action.payload.payload };
+//           break;
+//         }
+//         case "zone": {
+//           state.filterString = { ...state.filterString, zone: action.payload.payload };
+//           break;
+//         }
+//         case "structure": {
+//           state.filterString = { ...state.filterString, structure: action.payload.payload };
+//           break;
+//         }
+//         case "minP": {
+//           state.filterString = { ...state.filterString, minP: action.payload.payload };
+//           break;
+//         }
+//         case "maxP": {
+//           state.filterString = { ...state.filterString, maxP: action.payload.payload };
+//           break;
+//         }
+//         case "minF": {
+//           state.filterString = { ...state.filterString, minF: action.payload.payload };
+//           break;
+//         }
+//         case "maxF": {
+//           state.filterString = { ...state.filterString, maxF: action.payload.payload };
+//           break;
+//         }
+//         case "elevator": {
+//           state.filterString = { ...state.filterString, elevator: action.payload.payload };
+//           break;
+//         }
+//         case "reset": {
+//           state.filterString = initialFilter;
+//           break;
+//         }
+//       }
+//     },
+//   },
+// });
 const filterSlice = createSlice({
   name: "filterString",
   initialState: initialFilter,
   reducers: {
     filter(state, action) {
-      switch (action.payload.type) {
-        case "city": {
-          state.filterString = { ...state.filterString, city: action.payload.payload };
-          break;
-        }
-        case "zone": {
-          state.filterString = { ...state.filterString, zone: action.payload.payload };
-          break;
-        }
-        case "structure": {
-          state.filterString = { ...state.filterString, structure: action.payload.payload };
-          break;
-        }
-        case "minP": {
-          state.filterString = { ...state.filterString, minP: action.payload.payload };
-          break;
-        }
-        case "maxP": {
-          state.filterString = { ...state.filterString, maxP: action.payload.payload };
-          break;
-        }
-        case "minF": {
-          state.filterString = { ...state.filterString, minF: action.payload.payload };
-          break;
-        }
-        case "maxF": {
-          state.filterString = { ...state.filterString, maxF: action.payload.payload };
-          break;
-        }
-        case "elevator": {
-          state.filterString = { ...state.filterString, elevator: action.payload.payload };
-          break;
-        }
-        case "reset": {
-          state.filterString = initialFilter;
-          break;
-        }
-      }
+      state.filterString = action.payload;
     },
   },
 });

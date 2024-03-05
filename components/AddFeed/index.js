@@ -44,7 +44,6 @@ const AddFeed = () => {
       setFeedInput((state) => ({ ...state, [field]: { ...state.location, [nested]: data } }));
     } else if (field === "images") {
       setFeedInput((state) => ({ ...state, images: [...state.images, data] }));
-      console.log(feedInput);
     } else {
       setFeedInput((state) => ({ ...state, [field]: data }));
     }

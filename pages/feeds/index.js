@@ -61,16 +61,18 @@ const Feeds = ({ user, feeds: dbFeeds }) => {
         console.log(err);
       }
     } else if (filterString !== undefined) {
-      let { city, zone, structure, minP, maxP, minF, maxF, elevator } = filterString || {};
+      console.log({filterString})
+      let { city, zone, structure, minP, maxP, minF, maxF, elevator, rooms } = filterString || {};
 
       let filteredFeeds = dbFeeds
         .filter((el) => city == undefined || city.includes(el.location.city))
         .filter((el) => zone == undefined || zone.includes(el.location.zone))
         .filter((el) => structure == undefined || structure.includes(el.structure))
-        .filter((el) => minP == undefined || minP <= el.price)
-        .filter((el) => maxP == undefined || maxP >= el.price)
-        .filter((el) => minF == undefined || minF <= el.floor)
-        .filter((el) => maxF == undefined || maxF >= el.floor)
+        .filter((el) => minP == undefined || parseInt(minP) <= el.price)
+        .filter((el) => maxP == undefined || parseInt(maxP) >= el.price)
+        .filter((el) => minF == undefined || parseInt(minF) <= el.floor)
+        .filter((el) => maxF == undefined || parseInt(maxF) >= el.floor)
+        .filter((el) => rooms == undefined || parseInt(rooms) == el.rooms)
         .filter((el) => elevator == undefined || elevator == el.elevator);
 
       setGridFeeds(filteredFeeds);

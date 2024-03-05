@@ -85,7 +85,7 @@ exports.one = async (req, res, next) => {
 };
 exports.filterOptions = async (req, res, next) => {
   let { city, zone, structure, minP, maxP, elevator } = req.query;
-  console.log(req.query);
+  // console.log(req.query);
 
   let feeds = [];
   let filteredFeeds = [];
