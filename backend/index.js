@@ -13,10 +13,13 @@ const UserRoles = require("supertokens-node/recipe/userroles");
 const Multitenancy = require("supertokens-node/recipe/multitenancy");
 const supertokens = require("supertokens-node");
 const UserMetadata = require("supertokens-node/recipe/usermetadata");
+const dotenv = require("dotenv");
 
 const feeds = require("./routes/feeds.js");
 const plans = require("./routes/plans.js");
 const users = require("./routes/users.js");
+
+dotenv.config({ path: "./.env" });
 
 const apiBasePath = "/api/auth/";
 const getApiDomain = () => {
@@ -29,12 +32,11 @@ const getWebsiteDomain = () => {
   const websiteUrl = process.env.REACT_APP_WEBSITE_URL || `http://localhost:${websitePort}`;
   return websiteUrl;
 };
-
 supertokens.init({
   framework: "express",
   supertokens: {
-    connectionURI: "https://st-dev-29e5d5e0-856a-11ee-8cf3-5d664e22d3f6.aws.supertokens.io",
-    apiKey: "gooUzpvPLS79=rdHOGRZal-Ctn",
+    connectionURI: process.env.connectionURI,
+    apiKey: process.env.apiKey,
   },
   appInfo: {
     appName: "SuperTokens Demo App",
@@ -57,12 +59,10 @@ supertokens.init({
 
 const app = express();
 
-app.use(bodyParser.json({limit: "50mb"}));
-app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true, parameterLimit: 50000 }));
 
-mongoose
-  .connect("mongodb+srv://aldoberziu:LNTVBarIiahhKgpQ@cluster0.do5p57m.mongodb.net/")
-  .then(() => console.log("DB CONNECTED SUCKESSFULLY!!!"));
+mongoose.connect(process.env.DB).then(() => console.log("DB CONNECTED SUCKESSFULLY!!!"));
 
 app.use(
   cors({
