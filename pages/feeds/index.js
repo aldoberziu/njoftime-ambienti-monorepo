@@ -12,6 +12,7 @@ import { getApiDomain } from "../../config/appInfo";
 import { useEffect, useState } from "react";
 import { userActions } from "../../store";
 import Loader from "../../components/Loader";
+import { cities } from "../../Constants";
 
 const Feeds = ({ user, feeds: dbFeeds }) => {
   const dispatch = useDispatch();
@@ -49,19 +50,33 @@ const Feeds = ({ user, feeds: dbFeeds }) => {
 
   useEffect(() => {
     if (searchValue !== "") {
-      setLoading(true);
-      try {
-        axios
-          .get(getApiDomain() + `/feeds/search/${searchValue}`)
-          .then((response) => setGridFeeds(response?.data?.data));
-        setLoading(false);
-        const grid = document.getElementById("feeds-grid");
-        grid?.scrollIntoView({ behavior: "smooth" });
-      } catch (err) {
-        console.log(err);
-      }
+      const searchElements = searchValue.split(" ");
+      const words = searchElements.filter((item) => isNaN(item));
+
+      const feedsData = dbFeeds
+        .map((dbFeed) => ({
+          ...dbFeed,
+          location: {
+            ...dbFeed.location,
+            city: cities.find(({ _id }) => _id === dbFeed.location.city)?.title,
+          },
+        }))
+        .filter((feed) =>
+          words.some((el) => feed.location.city.toLowerCase().includes(el.toLowerCase()))
+        );
+        //kalove city from 1 to tirane por duhet ta besh return si 1 prap sic ka qen
+      setGridFeeds(feedsData);
+      // try {
+      //   axios
+      //     .get(getApiDomain() + `/feeds/search/${searchValue}`)
+      //     .then((response) => setGridFeeds(response?.data?.data));
+      //   setLoading(false);
+      //   const grid = document.getElementById("feeds-grid");
+      //   grid?.scrollIntoView({ behavior: "smooth" });
+      // } catch (err) {
+      //   console.log(err);
+      // }
     } else if (filterString !== undefined) {
-      console.log({filterString})
       let { city, zone, structure, minP, maxP, minF, maxF, elevator, rooms } = filterString || {};
 
       let filteredFeeds = dbFeeds
@@ -76,7 +91,6 @@ const Feeds = ({ user, feeds: dbFeeds }) => {
         .filter((el) => elevator == undefined || elevator == el.elevator);
 
       setGridFeeds(filteredFeeds);
-      // dispatch(filterActions.filter({ type: "reset", payload: "" }));
     }
   }, [searchValue, filterString]);
 
