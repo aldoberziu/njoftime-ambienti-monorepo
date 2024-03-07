@@ -9,13 +9,14 @@ import FilterContainer from "../../components/FilterContainer";
 import Banner from "../../components/HomeBanner";
 import axios from "axios";
 import { getApiDomain } from "../../config/appInfo";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { userActions } from "../../store";
 import Loader from "../../components/Loader";
 import { cities } from "../../Constants";
 
 const Feeds = ({ user, feeds: dbFeeds }) => {
   const dispatch = useDispatch();
+  const gridRef = useRef();
   const sCategory = useSelector((state) => state.category.category);
   const searchValue = useSelector((state) => state.search.searchValue);
   const filterString = useSelector((state) => state.filter.filterString);
@@ -53,7 +54,7 @@ const Feeds = ({ user, feeds: dbFeeds }) => {
       const searchElements = searchValue.split(" ");
       const words = searchElements.filter((item) => isNaN(item));
 
-      const feedsData = dbFeeds
+      const searchedIDs = dbFeeds
         .map((dbFeed) => ({
           ...dbFeed,
           location: {
@@ -63,19 +64,10 @@ const Feeds = ({ user, feeds: dbFeeds }) => {
         }))
         .filter((feed) =>
           words.some((el) => feed.location.city.toLowerCase().includes(el.toLowerCase()))
-        );
-        //kalove city from 1 to tirane por duhet ta besh return si 1 prap sic ka qen
-      setGridFeeds(feedsData);
-      // try {
-      //   axios
-      //     .get(getApiDomain() + `/feeds/search/${searchValue}`)
-      //     .then((response) => setGridFeeds(response?.data?.data));
-      //   setLoading(false);
-      //   const grid = document.getElementById("feeds-grid");
-      //   grid?.scrollIntoView({ behavior: "smooth" });
-      // } catch (err) {
-      //   console.log(err);
-      // }
+        )
+        .map((feed) => ({ _id: feed._id }));
+      const feeds = dbFeeds.filter((feed) => searchedIDs.some((el) => feed._id.includes(el._id)));
+      setGridFeeds(feeds);
     } else if (filterString !== undefined) {
       let { city, zone, structure, minP, maxP, minF, maxF, elevator, rooms } = filterString || {};
 

@@ -31,7 +31,7 @@ const SinglePlan = ({ plan, activePlan, id }) => {
     });
   };
   useEffect(() => {
-    if (plan) {
+    if (!!plan) {
       setLoading(false);
     }
   }, [plan]);

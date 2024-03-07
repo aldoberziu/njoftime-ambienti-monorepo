@@ -4,8 +4,10 @@ import { useRouter } from "next/router";
 import Slider from "../Slider";
 import FavoriteButton from "../Favorite";
 import { cities, zones, categories, structures, countries } from "../../Constants";
+import { useEffect, useRef } from "react";
 
 const FeedsGrid = (props) => {
+  const gridRef = useRef();
   const router = useRouter();
   const { feeds } = props;
 
@@ -20,10 +22,14 @@ const FeedsGrid = (props) => {
     },
   }));
 
+  useEffect(() => {
+    gridRef.current.scrollIntoView({ behavior: "smooth" });
+  }, [feeds]);
+
   if (feedsData) {
     return (
       <div>
-        <div className={styles.displayBlock2x} id="feeds-grid">
+        <div className={styles.displayBlock2x} id="feeds-grid" ref={gridRef}>
           {feedsData.map((feed) => (
             <div
               className={styles.singleContainer}
@@ -35,7 +41,9 @@ const FeedsGrid = (props) => {
               </div>
               <div className={styles.specificsContainer}>
                 <Text ui1 className={styles.title}>
-                  {`${feed?.location?.zone}, ${feed.location?.city}` /*, ${feed.location?.country}*/}
+                  {
+                    `${feed?.location?.zone}, ${feed.location?.city}` /*, ${feed.location?.country}*/
+                  }
                 </Text>
                 <Text ui3 className={styles.ui3}>
                   Ambienti: {feed.rooms} + {feed.toilet} {feed.garage ? "+ Garazh" : ""} /{" "}

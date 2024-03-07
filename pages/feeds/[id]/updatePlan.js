@@ -21,22 +21,18 @@ export async function getServerSideProps(context) {
 }
 
 const Plans = ({ plans, feed: activePlan, id }) => {
-  const [loading, setLoading] = useState(false);
-
-  if (loading) {
-    return <Loader />;
-  } else {
-    return (
-      <div className={styles.section}>
-        <Text sh1 bold className={styles.header}>ZGJIDHNI SHËRBIMET TONA TË MARKETINGUT RRETH NJOFTIMEVE TË PUNËS</Text>
-        <div className={styles.plansContainer}>
-          {plans.map((plan) => (
-            <SinglePlan plan={plan} activePlan={activePlan} id={id} />
-          ))}
-        </div>
+  return (
+    <div className={styles.section}>
+      <Text sh1 bold className={styles.header}>
+        ZGJIDHNI SHËRBIMET TONA TË MARKETINGUT RRETH NJOFTIMEVE TË PUNËS
+      </Text>
+      <div className={styles.plansContainer}>
+        {plans.map((plan) => (
+          <SinglePlan plan={plan} activePlan={activePlan} id={id} />
+        ))}
       </div>
-    );
-  }
+    </div>
+  );
 };
 
 export default Plans;
