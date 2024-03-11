@@ -63,6 +63,7 @@ function ProtectedPage() {
       <Head>
         <title>SuperTokens 💫</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
       </Head>
       <div className={styles.mainContainer}>
       <SaveUser />

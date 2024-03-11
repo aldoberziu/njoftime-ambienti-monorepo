@@ -29,6 +29,7 @@ export default function Auth(): JSX.Element {
                     type="text/css"
                 />
                 <link rel="icon" href="/favicon.ico" />
+                <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
             </Head>
 
             <main className={styles.main}>
