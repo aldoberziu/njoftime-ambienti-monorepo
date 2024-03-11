@@ -58,7 +58,7 @@ const FeedsSlider = (props) => {
                 <div className={styles.portraitSpecificsContainer}>
                   <Text ui1 className={styles.title}>
                     {
-                      `${feed.location?.zone}, ${feed.location?.city}` /*, ${feed.location?.country}*/
+                      `${feed.location?.zone}, ${feed.location?.city}` /*, ${feed.location?.country} */
                     }
                   </Text>
                   {/* <Text ui3>{feed.category}</Text> */}
