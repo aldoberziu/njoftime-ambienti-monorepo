@@ -9,3 +9,8 @@
   object-fit: cover;
   filter: brightness(65%);
 }
+@media screen and (max-width: 768px) {
+  .bannerContainer{
+    height: 35vh;
+  }
+}

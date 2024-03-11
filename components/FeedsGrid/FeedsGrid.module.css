@@ -46,3 +46,11 @@
   width: 100%;
   height: inherit;
 }
+@media screen and (max-width: 768px) {
+  .displayBlock2x{
+    grid-template-columns: repeat(1, 1fr);
+    padding: 0px 30px;
+    margin: 0;
+    grid-gap: 15px;
+  }
+}

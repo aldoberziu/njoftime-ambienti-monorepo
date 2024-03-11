@@ -13,10 +13,10 @@ import { useEffect, useState, useRef } from "react";
 import { userActions } from "../../store";
 import Loader from "../../components/Loader";
 import { cities } from "../../Constants";
+import styles from '../../styles/HomePage.module.css'
 
 const Feeds = ({ user, feeds: dbFeeds }) => {
   const dispatch = useDispatch();
-  const gridRef = useRef();
   const sCategory = useSelector((state) => state.category.category);
   const searchValue = useSelector((state) => state.search.searchValue);
   const filterString = useSelector((state) => state.filter.filterString);
@@ -96,7 +96,7 @@ const Feeds = ({ user, feeds: dbFeeds }) => {
     return (
       <>
         <Banner />
-        <div style={{ padding: "40px" }}>
+        <div className={styles.globalWrapper }>
           <FilterContainer filter={filter} retrieveFilter={handleFilter} />
           <FeedsSlider
             feeds={sCategory === "" ? dbFeeds : sliderFeeds}

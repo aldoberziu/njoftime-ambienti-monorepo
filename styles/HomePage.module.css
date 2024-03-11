@@ -1,0 +1,8 @@
+.globalWrapper {
+  padding: 40px;
+}
+@media screen and (max-width: 768px) {
+  .globalWrapper {
+    padding: 0px;
+  }
+}
