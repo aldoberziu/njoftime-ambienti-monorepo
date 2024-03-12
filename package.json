@@ -5,7 +5,7 @@
     "start:backend": "cd backend && npm start",
     "start:dev": "next dev",
     "build": "next build",
-    "old-build": "npm-run-all --parallel start:frontend start:backend",
+    "build-all": "npm-run-all --parallel start:frontend start:backend",
     "dev": "npm-run-all --parallel start:backend start:dev",
     "start": "next start"
   },

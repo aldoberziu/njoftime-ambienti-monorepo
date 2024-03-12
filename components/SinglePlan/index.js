@@ -45,29 +45,35 @@ const SinglePlan = ({ plan, activePlan, id }) => {
           <Text sh2>Rekomandohet</Text>
         </div>
         <div className={styles.planCardContainer} key={plan._id}>
-          <Text sh1 bold className={styles.title}>
-            {plan.title}
-          </Text>
-          <Text sh2 className={styles.price}>
-            {plan.price}
-          </Text>
-          {plan._id === activePlan ? (
-            <Button disabled className={styles.postoNjoftimin}>
-              Plani Aktual
-            </Button>
-          ) : (
-            <Button className={styles.postoNjoftimin} onClick={() => updatePlan(plan._id)}>
-              Posto Njoftimin
-            </Button>
-          )}
-          {plan.items.map((el) => (
-            <div className={styles.items}>
-              <Image src={Checked} />
-              <Text className={styles.ui2} ui2>
-                {el}
+          <div className={styles.infos}>
+            <Text sh1 bold className={styles.title}>
+              {plan.title}
+            </Text>
+            <div>
+              <Text sh2 className={styles.price}>
+                {plan.price}
               </Text>
+              {plan._id === activePlan ? (
+                <Button disabled className={styles.postoNjoftimin}>
+                  Plani Aktual
+                </Button>
+              ) : (
+                <Button className={styles.postoNjoftimin} onClick={() => updatePlan(plan._id)}>
+                  Posto Njoftimin
+                </Button>
+              )}
             </div>
-          ))}
+          </div>
+          <div className={styles.items}>
+            {plan.items.map((el) => (
+              <div className={styles.item}>
+                <Image src={Checked} />
+                <Text className={styles.ui2} ui2>
+                  {el}
+                </Text>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     );
