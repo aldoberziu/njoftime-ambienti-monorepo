@@ -66,3 +66,20 @@
   border-radius: 4px;
   margin: 30px 0px 15px 0;
 }
+@media screen and (max-width: 768px) {
+  .container{
+    margin: 50px 20px;
+    width: auto;
+    gap: 12px;
+  }
+  .lastChild {
+    grid-column-start: auto;
+    grid-column-end: auto;
+    width: auto;
+  }
+  .pattern1, .pattern2, .pattern3{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 12px;
+  }
+}

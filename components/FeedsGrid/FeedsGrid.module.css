@@ -49,8 +49,24 @@
 @media screen and (max-width: 768px) {
   .displayBlock2x{
     grid-template-columns: repeat(1, 1fr);
-    padding: 0px 30px;
+    padding: 0px 10px;
     margin: 0;
     grid-gap: 15px;
+  }
+  .specificsContainer{
+    padding: 10px 10px 0px 0px;
+    margin-left: 15px;
+  }
+  .specificsContainer .title {
+    margin-bottom: 5px;
+  }
+  .specificsContainer .ui3 {
+    margin-top: 5px;
+  }
+  .specificsContainer .bottomContainer {
+    margin-top: 10px;
+  }
+  .imageContainer{
+    padding: 0;
   }
 }

@@ -3,3 +3,8 @@
   width: auto;
   height: auto;
 }
+@media screen and (max-width: 768px) {
+  .heartIcon img{
+    width: 24px !important;
+  }
+}

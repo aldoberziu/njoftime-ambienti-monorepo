@@ -1,9 +1,11 @@
 {
   "private": true,
   "scripts": {
+    "start:frontend": "next build",
     "start:backend": "cd backend && npm start",
-    "prod": "next build",
-    "build": "npm-run-all --parallel prod start:backend",
+    "start:dev": "next dev",
+    "build": "npm-run-all --parallel start:frontend start:backend",
+    "dev": "npm-run-all --parallel start:backend start:dev",
     "start": "next start"
   },
   "dependencies": {
