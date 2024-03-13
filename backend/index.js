@@ -93,9 +93,9 @@ app.get("/tenants", async (req, res) => {
   res.send(tenants);
 });
 
-app.use("/feeds", feeds);
-app.use("/plans", plans);
-app.use("/users", users);
+app.use("/api/feeds", feeds);
+app.use("/api/plans", plans);
+app.use("/api/users", users);
 
 // In case of session related errors, this error handler
 // returns 401 to the client.

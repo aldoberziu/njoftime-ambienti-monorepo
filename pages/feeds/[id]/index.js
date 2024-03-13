@@ -8,7 +8,7 @@ import Text from "../../../components/Text";
 export async function getServerSideProps(context) {
   const { params } = context;
   const { id } = params;
-  const feed = await axios.get(getApiDomain() + `/feeds/${id}`);
+  const feed = await axios.get(getApiDomain() + `/api/feeds/${id}`);
   return {
     props: {
       feed: feed.data.data,

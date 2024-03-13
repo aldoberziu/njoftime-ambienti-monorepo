@@ -26,7 +26,7 @@ const SinglePlan = ({ plan, activePlan, id }) => {
   const updatePlan = async (planId) => {
     setLoading(true);
     Router.reload();
-    await axios.patch(getApiDomain() + `/feeds/${id}`, {
+    await axios.patch(getApiDomain() + `/api/feeds/${id}`, {
       activePlan: planId,
     });
   };

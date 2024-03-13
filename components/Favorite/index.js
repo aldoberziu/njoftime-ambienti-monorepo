@@ -18,7 +18,7 @@ const FavoriteButton = ({ feedId }) => {
     e.stopPropagation();
     if (userId !== "") {
       dispatch(userActions.favorites(feedId));
-      await axios.patch(getApiDomain() + `/users/addToFavorite`, {
+      await axios.patch(getApiDomain() + `/api/users/addToFavorite`, {
         userId,
         feedId,
       });

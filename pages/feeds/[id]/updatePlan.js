@@ -9,8 +9,8 @@ import styles from "../../../components/SinglePlan/SinglePlan.module.css";
 export async function getServerSideProps(context) {
   const { params } = context;
   const { id } = params;
-  let plans = await axios.get(getApiDomain() + `/plans`);
-  let feed = await axios.get(getApiDomain() + `/feeds/${id}`);
+  let plans = await axios.get(getApiDomain() + `/api/plans`);
+  let feed = await axios.get(getApiDomain() + `/api/feeds/${id}`);
   return {
     props: {
       id,

@@ -130,9 +130,9 @@ export async function getServerSideProps(context) {
     }
     throw err;
   }
-  const res = await axios.get(getApiDomain() + `/users/${session.getUserId()}`);
+  const res = await axios.get(getApiDomain() + `/api/users/${session.getUserId()}`);
 
-  let feeds = await axios.get(getApiDomain() + "/feeds");
+  let feeds = await axios.get(getApiDomain() + "/api/feeds");
 
   return {
     props: { user: res.data.user, feeds: feeds.data.data },

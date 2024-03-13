@@ -8,7 +8,7 @@ const SaveUser = () => {
     async function doesSessionExist() {
       if (await Session.doesSessionExist()) {
         let accessTokenPayload = await Session.getAccessTokenPayloadSecurely();
-        await axios.post(getApiDomain() + `/users/${accessTokenPayload.rsub}`);
+        await axios.post(getApiDomain() + `/api/users/${accessTokenPayload.rsub}`);
       }
     }
     doesSessionExist();
