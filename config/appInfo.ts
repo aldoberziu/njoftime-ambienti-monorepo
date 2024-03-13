@@ -1,19 +1,13 @@
-const port = 3000;
-
 const apiBasePath = "/api/auth/";
 
-export const websiteDomain = process.env.REACT_APP_WEBSITE_URL || `http://localhost:${port}`;
+export const websiteDomain = process.env.REACT_APP_WEBSITE_URL || "http://localhost:3000";
 
 export function getApiDomain() {
-  const apiPort = 3001;
-  const apiUrl = process.env.REACT_APP_API_URL || `http://localhost:${apiPort}`;
-  return apiUrl;
+  return process.env.REACT_APP_API_URL || "http://localhost:3001";
 }
 
 export function getWebsiteDomain() {
-  const websitePort = 3000;
-  const websiteUrl = process.env.REACT_APP_WEBSITE_URL || `http://localhost:${websitePort}`;
-  return websiteUrl;
+  return process.env.REACT_APP_WEBSITE_URL || "http://localhost:3000";
 }
 
 export const appInfo = {
