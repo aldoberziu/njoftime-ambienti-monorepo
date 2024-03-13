@@ -10,6 +10,7 @@ import toJSON from "../../utils/toJSON";
 import { getApiDomain } from "../../config/appInfo";
 import axios from "axios";
 import { useSessionContext } from "supertokens-auth-react/recipe/session";
+import Head from "next/head";
 
 const AddFeed = () => {
   const userId = useSessionContext().userId;
