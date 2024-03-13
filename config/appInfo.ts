@@ -2,17 +2,17 @@ const port = 3000;
 
 const apiBasePath = "/api/auth/";
 
-export const websiteDomain = `http://njoftime-ambienti.vercel.app/${port}`;
+export const websiteDomain = `http://localhost:${port}`;
 
 export function getApiDomain() {
   const apiPort = 3001;
-  const apiUrl = `http://njoftime-ambienti.vercel.app/${apiPort}`;
+  const apiUrl = `http://localhost:${apiPort}`;
   return apiUrl;
 }
 
 export function getWebsiteDomain() {
   const websitePort = 3000;
-  const websiteUrl = `http://njoftime-ambienti.vercel.app/${websitePort}`;
+  const websiteUrl = `http://localhost:${websitePort}`;
   return websiteUrl;
 }
 

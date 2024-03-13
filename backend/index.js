@@ -24,12 +24,12 @@ dotenv.config({ path: "./.env" });
 const apiBasePath = "/api/auth/";
 const getApiDomain = () => {
   const apiPort = process.env.REACT_APP_API_PORT || 3001;
-  const apiUrl = process.env.REACT_APP_API_URL || `http://njoftime-ambienti.vercel.app:${apiPort}`;
+  const apiUrl = process.env.REACT_APP_API_URL || `http://localhost:${apiPort}`;
   return apiUrl;
 };
 const getWebsiteDomain = () => {
   const websitePort = process.env.REACT_APP_WEBSITE_PORT || 3000;
-  const websiteUrl = process.env.REACT_APP_WEBSITE_URL || `http://njoftime-ambienti.vercel.app:${websitePort}`;
+  const websiteUrl = process.env.REACT_APP_WEBSITE_URL || `http://localhost:${websitePort}`;
   return websiteUrl;
 };
 supertokens.init({
@@ -99,7 +99,7 @@ app.use("/users", users);
 
 // In case of session related errors, this error handler
 // returns 401 to the client.
-// app.use(errorHandler());
+app.use(errorHandler());
 
 app.listen(3001, () => console.log(`API Server listening on port 3001`));
 
