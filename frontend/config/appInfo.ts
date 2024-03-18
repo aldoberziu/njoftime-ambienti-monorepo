@@ -13,6 +13,6 @@ export function getWebsiteDomain() {
 export const appInfo = {
   appName: "Njoftime Ambienti",
   websiteDomain,
-  apiDomain: websiteDomain,
+  apiDomain: getApiDomain(),
   apiBasePath,
 };
