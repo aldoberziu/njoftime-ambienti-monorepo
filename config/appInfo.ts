@@ -2,7 +2,7 @@ const apiBasePath = "/api/auth/";
 const dotenv = require("dotenv");
 dotenv.config({ path: "./.env" });
 
-export const websiteDomain = process.env.REACT_APP_WEBSITE_URL || "http://localhost:3000";
+export const websiteDomain = process.env.REACT_APP_WEBSITE_URL;
 console.log({ websiteDomain });
 
 export function getApiDomain() {
