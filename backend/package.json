@@ -12,7 +12,7 @@
     "cloudinary": "^2.0.1"
   },
   "scripts": {
-    "start": "vercel dev"
+    "start": "node index.js"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
