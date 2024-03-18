@@ -9,7 +9,7 @@ exports.getApiDomain = () => {
   const apiPort = process.env.REACT_APP_API_PORT || 3001;
   const apiUrl =
     process.env.REACT_APP_API_URL === ""
-      ? `http://localhost:${apiPort}/api`
+      ? `http://localhost:${apiPort}`
       : process.env.REACT_APP_API_PORT;
   return apiUrl;
 };
