@@ -14,6 +14,7 @@ exports.getApiDomain = () => {
   return apiUrl;
 };
 
+
 exports.getWebsiteDomain = () => {
   const websitePort = process.env.REACT_APP_WEBSITE_PORT || 3000;
   const websiteUrl =
