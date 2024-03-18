@@ -59,7 +59,7 @@ const AddFeed = () => {
     );
     setFeedInput(filtered);
 
-    await axios.post(getApiDomain() + "/api/feeds", { feedInput, userId });
+    await axios.post(getApiDomain() + "/feeds", { feedInput, userId });
   };
 
   return (
