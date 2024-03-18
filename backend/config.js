@@ -7,13 +7,19 @@ const apiBasePath = "/api/auth/";
 
 exports.getApiDomain = () => {
   const apiPort = process.env.REACT_APP_API_PORT || 3001;
-  const apiUrl = process.env.REACT_APP_API_URL || `http://localhost:${apiPort}`;
+  const apiUrl =
+    process.env.REACT_APP_API_URL === ""
+      ? `http://localhost:${apiPort}/api`
+      : process.env.REACT_APP_API_PORT;
   return apiUrl;
 };
 
 exports.getWebsiteDomain = () => {
   const websitePort = process.env.REACT_APP_WEBSITE_PORT || 3000;
-  const websiteUrl = process.env.REACT_APP_WEBSITE_URL || `http://localhost:${websitePort}`;
+  const websiteUrl =
+    process.env.REACT_APP_WEBSITE_URL === ""
+      ? `http://localhost:${websitePort}`
+      : process.env.REACT_APP_WEBSITE_PORT;
   return websiteUrl;
 };
 
