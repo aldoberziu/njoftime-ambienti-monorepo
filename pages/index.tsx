@@ -61,7 +61,7 @@ function ProtectedPage() {
   return (
     <div className={styles.homeContainer}>
       <Head>
-        <title>SuperTokens 💫</title>
+        <title>Njoftime Ambienti 💫</title>
         <link rel="icon" href="/favicon.ico" />
         <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
       </Head>
