@@ -25,6 +25,7 @@ const apiBasePath = "/api/auth/";
 const getApiDomain = () => {
   const apiPort = process.env.REACT_APP_API_PORT || 3001;
   const apiUrl = process.env.REACT_APP_API_URL || `http://localhost:${apiPort}`;
+  console.log(apiUrl);
   return apiUrl;
 };
 const getWebsiteDomain = () => {
@@ -66,7 +67,7 @@ mongoose.connect(process.env.DB).then(() => console.log("DB CONNECTED SUCKESSFUL
 
 app.use(
   cors({
-    origin: getWebsiteDomain(),
+    origin: getApiDomain(),
     allowedHeaders: ["content-type", ...supertokens.getAllCORSHeaders()],
     methods: ["GET", "PUT", "POST", "PATCH", "DELETE"],
     credentials: true,
