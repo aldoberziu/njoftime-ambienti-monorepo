@@ -97,6 +97,13 @@ app.get("/tenants", async (req, res) => {
 app.use("/api/feeds", feeds);
 app.use("/api/plans", plans);
 app.use("/api/users", users);
+app.use("/", (req, res, next) => {
+  res.status(200).json({
+    status: "success",
+    data: "home page",
+  });
+  next();
+});
 
 // In case of session related errors, this error handler
 // returns 401 to the client.
