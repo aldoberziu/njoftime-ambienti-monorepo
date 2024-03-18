@@ -11,6 +11,10 @@ const nextConfig = {
       },
     ],
   },
+  env: {
+    REACT_APP_API_URL: process.env.REACT_APP_API_URL,
+    REACT_APP_WEBSITE_URL: process.env.REACT_APP_WEBSITE_URL,
+  },
 };
 
 module.exports = nextConfig;
