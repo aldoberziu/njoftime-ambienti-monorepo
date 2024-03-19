@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  width: 25px;
+  height: 1.2rem;
+  position: absolute;
+  top: 10px;
+  right: 0px;
+  background-color: var(--border-color);
+}
+.container::after {
+  content: "";
+  position: absolute;
+  right: 25px;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-top: 0.6rem solid transparent;
+  border-bottom: 0.6rem solid transparent;
+  border-right: 0.6rem solid var(--border-color);
+  clear: both;
+}
+.container img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: inherit;
+}
+// .red {
+// }
+// .red::after {
+//   // border-right: 0.6rem solid red;
+// }
+// .yellow {
+//   background-color: yellow;
+// }
+// .yellow::after {
+//   border-right: 0.6rem solid yellow;
+// }

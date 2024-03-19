@@ -16,6 +16,7 @@ exports.create = async (req, res, next) => {
       data: newUser,
     });
   } else {
+    
     res.status(200).json({
       status: "success",
     });

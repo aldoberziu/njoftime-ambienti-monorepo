@@ -19,3 +19,4 @@ export { default as DownArrowTriangle } from "./down-arrow-triangle.svg";
 export { default as DownArrow } from "./down-arrow.svg";
 export { default as UpArrow } from "./up-arrow.svg";
 export { default as ImageUploader } from "./image-uploader.svg";
+export { default as PremiumStar } from "./premium-star.svg";

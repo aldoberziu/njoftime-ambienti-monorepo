@@ -5,6 +5,7 @@ import Slider from "../Slider";
 import FavoriteButton from "../Favorite";
 import { cities, zones, categories, structures, countries } from "../../Constants";
 import { useEffect, useRef } from "react";
+import PremiumTag from "../PremiumTag";
 
 const FeedsGrid = (props) => {
   const gridRef = useRef();
@@ -72,6 +73,7 @@ const FeedsGrid = (props) => {
             </div>
           ))}
         </div>
+        <PremiumTag />
       </div>
     );
   }

@@ -25,7 +25,6 @@ const apiBasePath = "/api/auth/";
 const getApiDomain = () => {
   const apiPort = process.env.REACT_APP_API_PORT || 3001;
   const apiUrl = process.env.REACT_APP_API_URL || `http://localhost:${apiPort}`;
-  console.log(apiUrl);
   return apiUrl;
 };
 const getWebsiteDomain = () => {
@@ -33,6 +32,7 @@ const getWebsiteDomain = () => {
   const websiteUrl = process.env.REACT_APP_WEBSITE_URL || `http://localhost:${websitePort}`;
   return websiteUrl;
 };
+
 supertokens.init({
   framework: "express",
   supertokens: {
@@ -43,6 +43,8 @@ supertokens.init({
     appName: "SuperTokens Demo App",
     websiteDomain: getWebsiteDomain(),
     apiDomain: getWebsiteDomain(),
+    // websiteDomain: getWebsiteDomain(),
+    // apiDomain: getApiDomain(),
     apiBasePath,
   },
   recipeList: [
@@ -67,7 +69,7 @@ mongoose.connect(process.env.DB).then(() => console.log("DB CONNECTED SUCKESSFUL
 
 app.use(
   cors({
-    origin: getApiDomain(),
+    origin: 'http://localhost:3000/',//website domain always
     allowedHeaders: ["content-type", ...supertokens.getAllCORSHeaders()],
     methods: ["GET", "PUT", "POST", "PATCH", "DELETE"],
     credentials: true,
@@ -97,13 +99,6 @@ app.get("/tenants", async (req, res) => {
 app.use("/api/feeds", feeds);
 app.use("/api/plans", plans);
 app.use("/api/users", users);
-app.use("/", (req, res, next) => {
-  res.status(200).json({
-    status: "success",
-    data: "home page",
-  });
-  next();
-});
 
 // In case of session related errors, this error handler
 // returns 401 to the client.

@@ -28,8 +28,8 @@ const FavoriteButton = ({ feedId }) => {
   };
   return (
     <div onClick={addToFavorites} className={styles.heartIcon}>
-      {(sUser.favorites || []).includes(feedId) && <Image src={FilledHeart} alt="" />}
-      {!(sUser.favorites || []).includes(feedId) && <Image src={EmptyHeart} alt="" />}
+      {(sUser?.favorites || []).includes(feedId) && <Image src={FilledHeart} alt="" />}
+      {!(sUser?.favorites || []).includes(feedId) && <Image src={EmptyHeart} alt="" />}
     </div>
   );
 };
