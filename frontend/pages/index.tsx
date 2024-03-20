@@ -66,7 +66,7 @@ function ProtectedPage() {
         <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
       </Head>
       <div className={styles.mainContainer}>
-      <SaveUser />
+      {/* <SaveUser /> */}
         <div className={`${styles.topBand} ${styles.successTitle} ${styles.bold500}`}>
           <Image src={CelebrateIcon} alt="Login successful" className={styles.successIcon} /> Login
           successful

@@ -4,6 +4,7 @@ import Slider from "../Slider";
 import FavoriteButton from "../Favorite";
 import { cities, zones, categories, structures, countries } from "../../Constants";
 import { useRouter } from "next/router";
+import PremiumTag from "../PremiumTag";
 
 const FeedsSlider = (props) => {
   const router = useRouter();
@@ -54,7 +55,7 @@ const FeedsSlider = (props) => {
                 <div className={styles.portraitImageContainer}>
                   <Slider className={styles.slider} images={feed.images} />
                 </div>
-
+                  <PremiumTag activePlan={feed.activePlan} />
                 <div className={styles.portraitSpecificsContainer}>
                   <Text ui1 className={styles.title}>
                     {

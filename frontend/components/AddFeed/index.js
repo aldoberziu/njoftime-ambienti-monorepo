@@ -59,13 +59,13 @@ const AddFeed = () => {
     );
     setFeedInput(filtered);
 
-    await axios.post(getApiDomain() + "/feeds", { feedInput, userId });
+    await axios.post(getApiDomain() + "/api/feeds", { feedInput, userId });
   };
 
   return (
     <div>
       <Head>
-        <title>SuperTokens 💫</title>
+        <title>Njoftime Ambienti 💫</title>
         <link rel="icon" href="/favicon.ico" />
         <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
       </Head>

@@ -29,6 +29,7 @@
   display: none;
 }
 .portraitSingleContainer {
+  position: relative;
   display: flex;
   flex-direction: column;
   grid-template-columns: 6fr 5fr;

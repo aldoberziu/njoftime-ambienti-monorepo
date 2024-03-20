@@ -41,6 +41,7 @@ const FeedsGrid = (props) => {
                 <Slider className={styles.slider} images={feed.images} />
               </div>
               <div className={styles.specificsContainer}>
+                <PremiumTag activePlan={feed.activePlan} />
                 <Text ui1 className={styles.title}>
                   {
                     `${feed?.location?.zone}, ${feed.location?.city}` /*, ${feed.location?.country}*/
