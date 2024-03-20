@@ -74,7 +74,6 @@ const FeedsGrid = (props) => {
             </div>
           ))}
         </div>
-        <PremiumTag />
       </div>
     );
   }

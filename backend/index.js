@@ -69,7 +69,7 @@ mongoose.connect(process.env.DB).then(() => console.log("DB CONNECTED SUCKESSFUL
 
 app.use(
   cors({
-    origin: 'http://njoftime-ambienti.vercel.app',//website domain always
+    origin: 'http://localhost:3000',//website domain always
     allowedHeaders: ["content-type", ...supertokens.getAllCORSHeaders()],
     methods: ["GET", "PUT", "POST", "PATCH", "DELETE"],
     credentials: true,

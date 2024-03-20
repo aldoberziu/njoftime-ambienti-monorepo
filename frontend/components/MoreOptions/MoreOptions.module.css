@@ -39,14 +39,14 @@
   right: 10px;
   padding: 5px 7px;
 }
-.locationSelectors{
+.locationSelectors {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   justify-self: center;
   width: 100%;
   gap: 50px;
 }
-.gridSelectors{
+.gridSelectors {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-self: center;
@@ -54,7 +54,7 @@
   row-gap: 25px;
   width: 90%;
 }
-.bottomSelectors{
+.bottomSelectors {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   justify-self: center;
@@ -85,4 +85,18 @@
 }
 .filterButton img {
   padding-left: 5px;
+}
+@media screen and (max-width: 768px) {
+  .modalContent {
+    padding: 25px 30px;
+    height: 50%;
+    gap: 12px;
+    overflow: hidden;
+    overflow-y: scroll;
+  }
+  .locationSelectors, .gridSelectors, .bottomSelectors{
+    grid-template-columns: repeat(1, 1fr);
+    gap: 12px;
+    width: 100%;
+  }
 }

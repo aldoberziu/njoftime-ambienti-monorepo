@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import styles from "./Dropdown.module.css";
 
 const Dropdown = (props) => {
-  const [selectedValue, setSelectedValue] = useState({/* field: "default", data: "DEFAULT" */});
-  const { name, options, field, nested } = props;
+  const [selectedValue, setSelectedValue] = useState({
+    /* field: "default", data: "DEFAULT" */
+  });
+  const { name, options, field, nested, selectedCity } = props;
 
   const handleValue = (e) => {
     setSelectedValue({ field: field, nested: nested, data: e.target.value });
@@ -18,11 +20,13 @@ const Dropdown = (props) => {
       <option disabled value="DEFAULT" className={styles.option}>
         {name}
       </option>
-      {options?.map((el) => (
-        <option value={el?._id} className={styles.option}>
-          {el?.title}
-        </option>
-      ))}
+      {options
+        ?.filter((option) => option.cityId === selectedCity)
+        .map((el) => (
+          <option value={el?._id} className={styles.option}>
+            {el?.title}
+          </option>
+        ))}
     </select>
   );
 };

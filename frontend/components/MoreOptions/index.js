@@ -14,6 +14,7 @@ const MoreOptions = ({ onToggle }) => {
   const dispatch = useDispatch();
   const [modal, setModal] = useState(false);
   const [filterString, setFilterString] = useState({});
+  const [selectedCity, setSelectedCity] = useState("");
 
   const toggleModal = () => {
     setModal(!modal);
@@ -27,6 +28,7 @@ const MoreOptions = ({ onToggle }) => {
   const handleSelector = (input) => {
     let { field, data } = input;
     setFilterString((state) => ({ ...state, [field]: data }));
+    if(field === "city") setSelectedCity(data);
   };
   const handleFilter = async () => {
     const filtered = Object.fromEntries(
@@ -48,9 +50,10 @@ const MoreOptions = ({ onToggle }) => {
             selectedValue={handleSelector}
           />
           <Dropdown
-            name="Zgjidh qytetin"
+            name="Zgjidh zonen"
             field="zone"
             options={zones}
+            selectedCity={selectedCity}
             selectedValue={handleSelector}
           />
         </div>
@@ -120,9 +123,9 @@ const MoreOptions = ({ onToggle }) => {
           </Text>
         </Button>
       </div>
-      <button className={styles.closeModal} onClick={toggleModal}>
+      {/* <button className={styles.closeModal} onClick={toggleModal}>
         CLOSE
-      </button>
+      </button> */}
     </div>
   );
 };
