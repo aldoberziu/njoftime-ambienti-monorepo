@@ -9,7 +9,7 @@ supertokens.init(backendConfig());
 export default async function user(req, res) {
     await NextCors(req, res, {
         methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
-        origin: "http://localhost:3000/",//website domain always
+        origin: "http://njoftime-ambienti.vercel.app",//website domain always
         credentials: true,
         allowedHeaders: ["content-type", ...supertokens.getAllCORSHeaders()],
     });
